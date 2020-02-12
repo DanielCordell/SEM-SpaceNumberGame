@@ -1,6 +1,7 @@
-using System;
+﻿using System;
+using System.Data;
 
-namespace test
+namespace SEM
 {
     class Program
     {
@@ -12,6 +13,7 @@ namespace test
              * Level[] levels = new Level[];\
              * levels[4].potentialOperators; 
              */
+            
             Random rand = new Random();
             int first = rand.Next(0, 10);
             int second = rand.Next(-2, 10);
@@ -35,6 +37,7 @@ namespace test
             bool guessed = false;
             while (!guessed)
             {
+                Console.WriteLine(new DataTable().Compute("8+2*(3+4)", null));
                 Console.Write("Enter your guess: ");
                 int input = Int32.Parse(Console.ReadLine());
                 guessed = input == result;
