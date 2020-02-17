@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2351dbf714f2c9049bbfd0627d7f52ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroid: {fileID: 2078614000373612253, guid: 8c567228f1998468d909b1b02439aa7f,
+    type: 3}
+  extraAsteroids: 3
 --- !u!1001 &472763604
 PrefabInstance:
   m_ObjectHideFlags: 0
