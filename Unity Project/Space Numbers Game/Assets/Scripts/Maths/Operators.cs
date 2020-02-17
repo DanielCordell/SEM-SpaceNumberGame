@@ -3,5 +3,6 @@
     Add,
     Subtract,
     Multiply,
-    Divide
+    Divide,
+    Equals
 }

@@ -11,12 +11,15 @@ public class LevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Current demo code to generate a level
         currentLevel = GenerateLevel(1);
-        Debug.Log(currentLevel.numberOfInputs);
-        foreach (Operator op in currentLevel.potentialOperators) { Debug.Log(op); }
-        foreach (int[] range in currentLevel.numberRanges) { foreach (int num in range) { Debug.Log(num); } }
-        Debug.Log(currentLevel.numberRanges);
-        Debug.Log(currentLevel.levelNum);
+        SetupLevel(ref currentLevel);
+    }
+
+    void SetupLevel(ref Level level)
+    {
+        if (level == null) throw new ArgumentNullException("Level is Null!");
+
     }
 
     Level GenerateLevel(int level)
@@ -36,7 +39,7 @@ public class LevelHandler : MonoBehaviour
             case 12:
             case 13:
             case 14:
-            case 15: return new Level(1, new int[][] { new []{ 1, 2, 3 }, new []{ 4, 5, 6 } }, new Operator[] { Operator.Add });
+            case 15: return new Level(1, new int[][] { new []{ 1, 2, 3 }, new []{ 4, 5, 6 }, null }, new Operator[] { Operator.Add, Operator.Equals }, new bool[] { true, false, true });
         }
         return null;
     }
