@@ -8,6 +8,9 @@ public class LevelHandler : MonoBehaviour
     Level currentLevel;
     public const int MAX_LEVEL = 15;
 
+    public GameObject asteroid;
+    public int extraAsteroids;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +22,19 @@ public class LevelHandler : MonoBehaviour
     void SetupLevel(ref Level level)
     {
         if (level == null) throw new ArgumentNullException("Level is Null!");
-
+        int numberOfAsteroids = level.GetNumberOfGaps() + extraAsteroids;
+        for (int i = 0; i < numberOfAsteroids; i++)
+        {
+            GameObject a = Instantiate(asteroid);
+            int? number = (i < level.numberRanges.Length - 1) ? level.questionNumbers[i] : null;
+            a.transform.Find("Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
+        }
     }
 
     Level GenerateLevel(int level)
     {
-        switch (level) {
+        switch (level)
+        {
             case 1:
             case 2:
             case 3:
@@ -39,7 +49,7 @@ public class LevelHandler : MonoBehaviour
             case 12:
             case 13:
             case 14:
-            case 15: return new Level(1, new int[][] { new []{ 1, 2, 3 }, new []{ 4, 5, 6 }, null }, new Operator[] { Operator.Add, Operator.Equals }, new bool[] { true, false, true });
+            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Add, Operator.Equals }, new List<bool> { true, false, true });
         }
         return null;
     }
