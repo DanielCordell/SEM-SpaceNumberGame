@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class LevelHandler : MonoBehaviour
@@ -22,13 +23,44 @@ public class LevelHandler : MonoBehaviour
     void SetupLevel(ref Level level)
     {
         if (level == null) throw new ArgumentNullException("Level is Null!");
-        int numberOfAsteroids = level.GetNumberOfGaps() + extraAsteroids;
-        for (int i = 0; i < numberOfAsteroids; i++)
+        int numberOfRealAsteroids = level.GetNumberOfGaps();
+        int numberOfAsteroids = numberOfRealAsteroids + extraAsteroids;
+        Debug.Log("Generating " + numberOfAsteroids + " asteroids.");
+        Debug.Log("Real: " + numberOfRealAsteroids + " Fake: " + extraAsteroids);
+
+        GameObject[] positionObjects = GameObject.FindGameObjectsWithTag("AsteroidSpawnPos");
+        if (positionObjects == null)
         {
-            GameObject a = Instantiate(asteroid);
-            int? number = (i < level.numberRanges.Length - 1) ? level.questionNumbers[i] : null;
-            a.transform.Find("Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
+            throw new NullReferenceException("No objects tagged with AsteroidSpawnPos found, check scene hierarchy.");
         }
+        if (positionObjects.Length < numberOfAsteroids)
+        {
+            throw new ArgumentException("Too many asteroids (" + numberOfAsteroids + "), or not enough positionObjects (" + positionObjects.Length + ")!");
+        }
+        // Shuffle order of objects to get a visually interesting pattern each time.
+        System.Random rand = new System.Random();
+        positionObjects = positionObjects.OrderBy(positionObject => rand.Next()).ToArray();
+
+        // First, generate the real asteroids:
+        int[] valuesOfGaps = level.GetValuesOfGaps();
+        for (int i = 0; i < valuesOfGaps.Length; i++)
+        {
+            SetupAsteroid(valuesOfGaps[i], rand, positionObjects[i]);
+        }
+        // Then generate the extra asteroids with garbage!
+        for (int i = 0; i < level.visible.Count; i++)
+        {
+            int number = -1; // Todo Generate randomly!
+            SetupAsteroid(number, rand, positionObjects[level.GetValuesOfGaps().Length + i]);
+        }
+    }
+
+    void SetupAsteroid(int number, System.Random rand, GameObject positionObject)
+    {
+        GameObject a = Instantiate(asteroid, positionObject.GetComponent<Transform>().position, Quaternion.identity);
+        a.transform.Rotate(0, 0, rand.Next(360));
+        a.transform.Find("Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
+
     }
 
     Level GenerateLevel(int level)
