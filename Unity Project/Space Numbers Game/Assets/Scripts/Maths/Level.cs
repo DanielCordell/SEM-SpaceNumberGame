@@ -51,7 +51,7 @@ public class Level
         this.operatorsUsed = operators;
         this.visible = visible;
 
-        // Array of question numbers, with answer as null (still need to calculate)
+        // Array of question numbers, with last value (answer) as null (we still need to calculate  it)
         int?[] questionNumbersNoAnswer = new int?[visible.Count];
         System.Random rand = new System.Random();
 
@@ -62,12 +62,13 @@ public class Level
             int chosen = numberRanges[i][index];
             questionNumbersNoAnswer[i] = chosen;
 
+            // Ensure we don't get any duplicates by removing the number from the range!
             foreach (List<int> range in numberRanges)
             {
                 range.Remove(chosen);
             }
-            questionNumbersNoAnswer[questionNumbersNoAnswer.Length - 1] = null;
         }
+
         // Generate expression from chosen numbers
         String expressionString = GenerateExpressionString(questionNumbersNoAnswer);
         Debug.Log("Generated Expression: " + expressionString);

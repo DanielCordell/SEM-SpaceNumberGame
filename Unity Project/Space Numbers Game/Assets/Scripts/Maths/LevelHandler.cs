@@ -81,7 +81,7 @@ public class LevelHandler : MonoBehaviour
             case 12:
             case 13:
             case 14:
-            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Add, Operator.Equals }, new List<bool> { true, false, true });
+            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Divide, Operator.Equals }, new List<bool> { true, false, true });
         }
         return null;
     }
