@@ -50,21 +50,23 @@ public class LevelHandler : MonoBehaviour
 
         // Then generate the extra asteroids with garbage!
         string generated = "";
-        for (int i = 0; i < level.visible.Count; i++)
+        for (int i = 0; i < extraAsteroids; i++)
         {
             int number = -1;
             // Generate numbers randomly
             number = rand.Next(0, 9);
             for (int j = 0; j < valuesOfGaps.Length; j++)
             {
+                Debug.Log(generated);
                 generated = generated + valuesOfGaps[j].ToString() + " ";
             }
             while (generated.Contains(number.ToString()))
             {
                 number = rand.Next(0, 9);
             }
+            Debug.Log("End of for: " + generated);
             generated = generated + number.ToString() + " ";
-            SetupAsteroid(number, rand, positionObjects[level.GetValuesOfGaps().Length + i]);
+            SetupAsteroid(number, rand, positionObjects[valuesOfGaps.Length + i]);
         }
     }
 
