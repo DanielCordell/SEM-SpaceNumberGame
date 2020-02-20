@@ -143,6 +143,7 @@ public class Level
     private String GenerateExpressionString(int?[] questionNumbersNoAnswer)
     {
         String expression = "";
+        System.Random rand = new System.Random();
         for (int i = 0; i < operatorsUsed.Length; i++)
         {
             expression += questionNumbersNoAnswer[i];
@@ -151,8 +152,7 @@ public class Level
             // Make sure no consecutive division
             if ((operatorsUsed[i] == Operator.Divide) && (operatorsUsed[i + 1] == Operator.Divide))
             {
-                Operator[] op = (new Operator[] { Operator.Add, Operator.Subtract, Operator.Multiply });
-                operatorsUsed[i + 1] = op[(new System.Random()).Next(0, 3)];
+                operatorsUsed[i + 1] = (Operator) rand.Next(0, 3);
             }
             expression += operatorsUsed[i].ToOpString();
         }

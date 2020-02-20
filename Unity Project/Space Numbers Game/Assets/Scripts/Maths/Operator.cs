@@ -15,10 +15,10 @@ static class OperatorExtension
         switch (op)
         {
             case Operator.Add:      return "+";
+            case Operator.Subtract: return "-";
+            case Operator.Multiply: return "*";
             case Operator.Divide:   return "/";
             case Operator.Equals:   return "=";
-            case Operator.Multiply: return "*";
-            case Operator.Subtract: return "-";
             default: throw new ArgumentException("Bad Operator: " + op.ToString());
         }
     }
