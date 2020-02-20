@@ -16,7 +16,7 @@ namespace Tests
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
+        // `yield return null;` to skip a frame (e.g. wait for processing).
         [UnityTest]
         public IEnumerator NewTestScriptWithEnumeratorPasses()
         {
