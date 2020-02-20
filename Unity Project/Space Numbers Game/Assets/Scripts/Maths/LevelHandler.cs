@@ -24,8 +24,7 @@ public class LevelHandler : MonoBehaviour
         if (level == null) throw new ArgumentNullException("Level is Null!");
         int numberOfRealAsteroids = level.GetNumberOfGaps();
         int numberOfAsteroids = numberOfRealAsteroids + extraAsteroids;
-        Debug.Log("Generating " + numberOfAsteroids + " asteroids.");
-        Debug.Log("Real: " + numberOfRealAsteroids + " Fake: " + extraAsteroids);
+        Debug.Log("Generating " + numberOfAsteroids + " asteroids.\nReal: " + numberOfRealAsteroids + " Fake: " + extraAsteroids);
 
         GameObject[] positionObjects = GameObject.FindGameObjectsWithTag("AsteroidSpawnPos");
 
@@ -45,28 +44,25 @@ public class LevelHandler : MonoBehaviour
         int[] valuesOfGaps = level.GetValuesOfGaps();
         for (int i = 0; i < valuesOfGaps.Length; i++)
         {
+            Debug.Log("Real: " + valuesOfGaps[i]);
             SetupAsteroid(valuesOfGaps[i], rand, positionObjects[i]);
         }
 
+        List<int> prevRandomNumbers = new List<int>();
         // Then generate the extra asteroids with garbage!
-        string generated = "";
         for (int i = 0; i < extraAsteroids; i++)
         {
-            int number = -1;
-            // Generate numbers randomly
-            number = rand.Next(0, 9);
-            for (int j = 0; j < valuesOfGaps.Length; j++)
+            int number;
+
+            int max = Math.Max(numberOfAsteroids, 10);
+            do
             {
-                Debug.Log(generated);
-                generated = generated + valuesOfGaps[j].ToString() + " ";
-            }
-            while (generated.Contains(number.ToString()))
-            {
-                number = rand.Next(0, 9);
-            }
-            Debug.Log("End of for: " + generated);
-            generated = generated + number.ToString() + " ";
+                number = rand.Next(0, max);
+            } while (valuesOfGaps.Contains(number) || prevRandomNumbers.Contains(number));
+            
+            Debug.Log("Fake: " + number);
             SetupAsteroid(number, rand, positionObjects[valuesOfGaps.Length + i]);
+            prevRandomNumbers.Add(number);
         }
     }
 
