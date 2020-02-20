@@ -10,7 +10,7 @@ public enum Operator
 }
 static class OperatorExtension
 {
-    public static String ToOpString(this Operator op)
+    public static string ToOpString(this Operator op)
     {
         switch (op)
         {

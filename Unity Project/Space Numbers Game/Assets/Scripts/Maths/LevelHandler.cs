@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -29,6 +28,7 @@ public class LevelHandler : MonoBehaviour
         Debug.Log("Real: " + numberOfRealAsteroids + " Fake: " + extraAsteroids);
 
         GameObject[] positionObjects = GameObject.FindGameObjectsWithTag("AsteroidSpawnPos");
+
         if (positionObjects == null)
         {
             throw new NullReferenceException("No objects tagged with AsteroidSpawnPos found, check scene hierarchy.");
@@ -47,10 +47,23 @@ public class LevelHandler : MonoBehaviour
         {
             SetupAsteroid(valuesOfGaps[i], rand, positionObjects[i]);
         }
+
         // Then generate the extra asteroids with garbage!
+        string generated = "";
         for (int i = 0; i < level.visible.Count; i++)
         {
-            int number = -1; // Todo Generate randomly!
+            int number = -1;
+            // Generate numbers randomly
+            number = rand.Next(0, 9);
+            for (int j = 0; j < valuesOfGaps.Length; j++)
+            {
+                generated = generated + valuesOfGaps[j].ToString() + " ";
+            }
+            while (generated.Contains(number.ToString()))
+            {
+                number = rand.Next(0, 9);
+            }
+            generated = generated + number.ToString() + " ";
             SetupAsteroid(number, rand, positionObjects[level.GetValuesOfGaps().Length + i]);
         }
     }
@@ -81,7 +94,7 @@ public class LevelHandler : MonoBehaviour
             case 12:
             case 13:
             case 14:
-            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Divide, Operator.Equals }, new List<bool> { true, false, true });
+            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 0, 5, 6 }, new List<int> { 4, 5, 6 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Add, Operator.Divide, Operator.Divide, Operator.Equals }, new List<bool> { true, false, true, false, true });
         }
         return null;
     }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
@@ -31,7 +30,7 @@ public class Level
     {
         return visible.Count(x => !x);
     }
-    
+
     // This function returns the values that are in the 'gaps' in the equation. Used for asteroid generation.
     public int[] GetValuesOfGaps()
     {
@@ -73,8 +72,61 @@ public class Level
         String expressionString = GenerateExpressionString(questionNumbersNoAnswer);
         Debug.Log("Generated Expression: " + expressionString);
 
+        // Turning division into a multiplication
+        // [Current issue]: cannot handle with consecutive division like 2/6/4+5
+        if (expressionString.Contains('/'))
+        {
+            int count = CountDivisionSign(this.operatorsUsed);
+            Debug.Log("Number of division signs: " + count);
+            int[] indexOfDvisionSigns = FindIndexOfDivisionSign(operatorsUsed);
+            for (int i = 0; i < indexOfDvisionSigns.Length; i++)
+            {
+                // Make sure 0 cannot be denominator
+                if (questionNumbersNoAnswer[indexOfDvisionSigns[i] + 1] == 0)
+                    questionNumbersNoAnswer[indexOfDvisionSigns[i] + 1] += rand.Next(1, 10);
+                // If not divisible, add a random value
+                while ((questionNumbersNoAnswer[indexOfDvisionSigns[i]] % questionNumbersNoAnswer[indexOfDvisionSigns[i] + 1]) != 0)
+                    questionNumbersNoAnswer[indexOfDvisionSigns[i]] += rand.Next(0, 4);
+            }
+            expressionString = GenerateExpressionString(questionNumbersNoAnswer);
+            Debug.Log("Regenerated Expression: " + expressionString);
+        }
+
+
+        // Count how many times doese division appear
+        int CountDivisionSign(Operator[] operatorsUsed)
+        {
+            int count = 0;
+            for (int i = 0; i < operatorsUsed.Length; i++)
+            {
+                if (operatorsUsed[i] == Operator.Divide)
+                    count++;
+            }
+            return count;
+        }
+
+        // Find where the division signs are
+        int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
+        {
+            int count = CountDivisionSign(this.operatorsUsed);
+            int[] index = new int[count];
+            for (int i = 0, j = 0; i < operatorsUsed.Length; i++)
+            {
+                if (operatorsUsed[i] == Operator.Divide)
+                {
+                    index[j] = i;
+                    Debug.Log("Index of division signs: " + index[j]);
+                    j++;
+
+                }
+            }
+
+            return index;
+        }
+
+
         // Calculate result of expression
-        int result = 0; 
+        int result = 0;
         ExpressionEvaluator.Evaluate<int>(expressionString, out result);
         Debug.Log("Answer: " + result);
 
@@ -94,7 +146,14 @@ public class Level
         for (int i = 0; i < operatorsUsed.Length; i++)
         {
             expression += questionNumbersNoAnswer[i];
+            Debug.Log("questionNumbersNoAnswer: " + questionNumbersNoAnswer[i]);
             if (operatorsUsed[i] == Operator.Equals) return expression; // Don't add the equals to the 'expression', as we want an expression not a statement.
+            // Make sure no consecutive division
+            if ((operatorsUsed[i] == Operator.Divide) && (operatorsUsed[i + 1] == Operator.Divide))
+            {
+                Operator[] op = (new Operator[] { Operator.Add, Operator.Subtract, Operator.Multiply });
+                operatorsUsed[i + 1] = op[(new System.Random()).Next(0, 3)];
+            }
             expression += operatorsUsed[i].ToOpString();
         }
         throw new ArgumentException("Somehow generated a question with no Equals sign!");
