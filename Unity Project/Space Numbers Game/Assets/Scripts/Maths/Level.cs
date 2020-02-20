@@ -76,7 +76,7 @@ public class Level
         // [Current issue]: cannot handle with consecutive division like 2/6/4+5
         if (expressionString.Contains('/'))
         {
-            int count = CountDivisionSign(this.operatorsUsed);
+            int count = this.operatorsUsed.Count(op => op == Operator.Divide);
             Debug.Log("Number of division signs: " + count);
             int[] indexOfDvisionSigns = FindIndexOfDivisionSign(operatorsUsed);
             for (int i = 0; i < indexOfDvisionSigns.Length; i++)
@@ -92,38 +92,11 @@ public class Level
             Debug.Log("Regenerated Expression: " + expressionString);
         }
 
-
-        // Count how many times doese division appear
-        int CountDivisionSign(Operator[] operatorsUsed)
-        {
-            int count = 0;
-            for (int i = 0; i < operatorsUsed.Length; i++)
-            {
-                if (operatorsUsed[i] == Operator.Divide)
-                    count++;
-            }
-            return count;
-        }
-
         // Find where the division signs are
         int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
         {
-            int count = CountDivisionSign(this.operatorsUsed);
-            int[] index = new int[count];
-            for (int i = 0, j = 0; i < operatorsUsed.Length; i++)
-            {
-                if (operatorsUsed[i] == Operator.Divide)
-                {
-                    index[j] = i;
-                    Debug.Log("Index of division signs: " + index[j]);
-                    j++;
-
-                }
-            }
-
-            return index;
+            return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
         }
-
 
         // Calculate result of expression
         int result = 0;
