@@ -73,7 +73,6 @@ public class Level
         Debug.Log("Generated Expression: " + expressionString);
 
         // Turning division into a multiplication
-        // [Current issue]: cannot handle with consecutive division like 2/6/4+5
         if (expressionString.Contains('/'))
         {
             int count = this.operatorsUsed.Count(op => op == Operator.Divide);
