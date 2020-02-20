@@ -99,8 +99,16 @@ public class Level
 
         // Calculate result of expression
         int result = 0;
-        ExpressionEvaluator.Evaluate<int>(expressionString, out result);
-        Debug.Log("Answer: " + result);
+        try
+        {
+            ExpressionEvaluator.Evaluate<int>(expressionString, out result);
+        } catch(DivideByZeroException e)
+        {
+            throw new DivideByZeroException("When evaluating expression, a division by zero occured!", e);
+        } catch(Exception e)
+        {
+            throw new ArgumentException("An exception occured when trying to pass an expression to ExpressionEvaluator", e);
+        }
 
         // Save expression result into questionNumbersNoAnswer, then copy to local questionNumbers and remove nullable (as we have a value for it now!).
         questionNumbersNoAnswer[questionNumbersNoAnswer.Length - 1] = result;
