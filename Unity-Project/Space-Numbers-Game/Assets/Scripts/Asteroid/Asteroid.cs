@@ -7,12 +7,14 @@ public class Asteroid : MonoBehaviour
     public bool Selected = false;
     public int Value;
     GameObject crosshair;
+    AudioSource selectSound;
     
     // Start is called before the first frame update
     void Start()
     {
-         crosshair = transform.Find("NoRotation/Crosshair").gameObject;
-         crosshair.SetActive(Selected);
+        selectSound = GetComponent<AudioSource>();
+        crosshair = transform.Find("NoRotation/Crosshair").gameObject;
+        crosshair.SetActive(Selected);
     }
 
     // Update is called once per frame
@@ -24,6 +26,7 @@ public class Asteroid : MonoBehaviour
     {
         Selected =! Selected;
         crosshair.SetActive(Selected);
+        selectSound.Play(0);
     }
 
 }
