@@ -70,7 +70,7 @@ public class LevelHandler : MonoBehaviour
     {
         GameObject a = Instantiate(asteroid, positionObject.GetComponent<Transform>().position, Quaternion.identity);
         a.transform.Rotate(0, 0, rand.Next(360));
-        a.transform.Find("Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
+        a.transform.Find("NoRotation/Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
 
     }
 
