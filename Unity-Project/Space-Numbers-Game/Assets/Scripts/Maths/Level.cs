@@ -2,8 +2,7 @@
 using System.Linq;
 using System;
 using UnityEngine;
-using UnityEditor;
-
+using NCalc;
 public class Level
 {
 
@@ -101,8 +100,9 @@ public class Level
         int result = 0;
         try
         {
-            ExpressionEvaluator.Evaluate<int>(expressionString, out result);
-        } catch(DivideByZeroException e)
+            result = Convert.ToInt32(new Expression(expressionString).Evaluate());
+        }
+        catch (DivideByZeroException e)
         {
             throw new DivideByZeroException("When evaluating expression, a division by zero occured!", e);
         } catch(Exception e)
