@@ -1,7 +1,13 @@
 name: Unit Testing
 on:
-  push: {}
-  pull_request: {}
+  push:
+    branches-ignore:
+      - 'dev'
+      - 'master'
+  pull_request:
+    branches:
+      - 'dev'
+      - 'master'
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 jobs:
