@@ -121,7 +121,7 @@ public class Level
 
     // From our picked numbers, generate the expression string. (e.g. "5+1/3*4")
     // Make any necessary changes to the operatorsUsed to fix this.
-    private static String GenerateExpressionString(int?[] questionNumbersNoAnswer, ref Operator[] operatorsUsed)
+    public static String GenerateExpressionString(int?[] questionNumbersNoAnswer, ref Operator[] operatorsUsed)
     {
         String expression = "";
         System.Random rand = new System.Random();
