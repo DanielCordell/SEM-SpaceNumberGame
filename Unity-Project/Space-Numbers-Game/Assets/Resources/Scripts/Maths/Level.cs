@@ -5,7 +5,6 @@ using UnityEngine;
 using NCalc;
 public class Level
 {
-
     // The operators that will be used in this question, in the order they will be used in.
     public readonly Operator[] operatorsUsed;
 
@@ -23,6 +22,12 @@ public class Level
 
     // The maths statement string this question is based on, with everything filled in, for debugging. (e.g. "5+4=9")
     public String statementString;
+
+    // Find where the division signs are
+    public static int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
+    {
+        return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
+    }
 
     // Gaps are stored as false, count the number of falses.
     public int GetNumberOfGaps()
@@ -114,12 +119,6 @@ public class Level
         // Debug
         statementString = expressionString + "=" + result;
         LogDebugInfo();
-    }
-
-    // Find where the division signs are
-    public static int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
-    {
-        return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
     }
 
     // From our picked numbers, generate the expression string. (e.g. "5+1/3*4")
