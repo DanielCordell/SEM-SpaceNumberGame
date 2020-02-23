@@ -43,6 +43,9 @@ public class Level
             throw new ArgumentException("numberRanges Length + 1 != visible Length!\n numberRanges: " + numberRanges.Length + " visibile Length: " + visible.Count);
         if (numberRanges.Length != operators.Length)
             throw new ArgumentException("numberRanges Length != operators Length!\n numberRanges: " + numberRanges.Length + " operators Length: " + operators.Length);
+        if (visible.Count(it => !it) == 0)
+            throw new ArgumentException("visible needs at least one false value, otherwise the question doesn't make sense!");
+
 
         this.levelNum = levelNum;
         this.numberRanges = numberRanges;
@@ -131,6 +134,7 @@ public class Level
             Debug.Log("questionNumbersNoAnswer: " + questionNumbersNoAnswer[i]);
             if (operatorsUsed[i] == Operator.Equals) return expression; // Don't add the equals to the 'expression', as we want an expression not a statement.
             // Make sure no consecutive division
+            // TODO this should be refactored out of here!
             if ((operatorsUsed[i] == Operator.Divide) && (operatorsUsed[i + 1] == Operator.Divide))
             {
                 operatorsUsed[i + 1] = (Operator) rand.Next(0, 3);
