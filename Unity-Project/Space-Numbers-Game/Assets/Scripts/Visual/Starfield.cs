@@ -19,7 +19,6 @@ public class Starfield : MonoBehaviour
 
 	ParticleSystem particles;
 	ParticleSystem.Particle[] stars;
-
 	Transform cameraTransform;
 
 

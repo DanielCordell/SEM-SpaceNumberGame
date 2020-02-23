@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -8,20 +8,18 @@ namespace Tests
 {
     public class Background
     {
-        // A Test behaves as an ordinary method
-        [Test]
-        public void BackgroundSimplePasses()
+        GameObject starFieldPrefab;
+        [UnitySetUp]
+        public void Setup()
         {
-            // Use the Assert class to test conditions
         }
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
         [UnityTest]
-        public IEnumerator BackgroundWithEnumeratorPasses()
+        public IEnumerator CanCreatePrefab()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
+            SceneManager.LoadScene("SpaceScene");
+            GameObject starFieldPrefab = Resources.Load<GameObject>("Level/Prefabs/Starfield");
+            Assert.DoesNotThrow(() => GameObject.Instantiate(starFieldPrefab));
             yield return null;
         }
     }
