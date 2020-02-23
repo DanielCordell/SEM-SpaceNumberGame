@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace MathsTests
 {
     public class DivisionSignTests
     {
