@@ -68,7 +68,7 @@ public class Level
         }
 
         // Generate expression from chosen numbers
-        String expressionString = GenerateExpressionString(questionNumbersNoAnswer);
+        String expressionString = GenerateExpressionString(questionNumbersNoAnswer, ref operatorsUsed);
         Debug.Log("Generated Expression: " + expressionString);
 
         // Turning division into a multiplication
@@ -86,7 +86,7 @@ public class Level
                 while ((questionNumbersNoAnswer[indexOfDvisionSigns[i]] % questionNumbersNoAnswer[indexOfDvisionSigns[i] + 1]) != 0)
                     questionNumbersNoAnswer[indexOfDvisionSigns[i]] += rand.Next(0, 4);
             }
-            expressionString = GenerateExpressionString(questionNumbersNoAnswer);
+            expressionString = GenerateExpressionString(questionNumbersNoAnswer, ref operatorsUsed);
             Debug.Log("Regenerated Expression: " + expressionString);
         }
 
@@ -121,7 +121,7 @@ public class Level
 
     // From our picked numbers, generate the expression string. (e.g. "5+1/3*4")
     // Make any necessary changes to the operatorsUsed to fix this.
-    private String GenerateExpressionString(int?[] questionNumbersNoAnswer)
+    private static String GenerateExpressionString(int?[] questionNumbersNoAnswer, ref Operator[] operatorsUsed)
     {
         String expression = "";
         System.Random rand = new System.Random();
