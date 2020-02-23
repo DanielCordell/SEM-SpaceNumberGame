@@ -90,12 +90,6 @@ public class Level
             Debug.Log("Regenerated Expression: " + expressionString);
         }
 
-        // Find where the division signs are
-        int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
-        {
-            return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
-        }
-
         // Calculate result of expression
         int result = 0;
         try
@@ -119,7 +113,14 @@ public class Level
         LogDebugInfo();
     }
 
+    // Find where the division signs are
+    public static int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
+    {
+        return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
+    }
+
     // From our picked numbers, generate the expression string. (e.g. "5+1/3*4")
+    // Make any necessary changes to the operatorsUsed to fix this.
     private String GenerateExpressionString(int?[] questionNumbersNoAnswer)
     {
         String expression = "";
