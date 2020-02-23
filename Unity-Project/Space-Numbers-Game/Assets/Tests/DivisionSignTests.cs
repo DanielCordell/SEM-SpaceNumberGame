@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {
-    public class MathsTests
+    public class DivisionSignTests
     {
         [Test]
         public void Test_FindIndexOfDivisionSignWithSingleDivision()
