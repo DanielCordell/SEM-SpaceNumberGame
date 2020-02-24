@@ -33,7 +33,6 @@ public class Asteroid : MonoBehaviour
         Selected =! Selected;
         crosshair.SetActive(Selected);
         audioSource.PlayOneShot(selectSound);
-        Explode();
     }
 
     public void Explode()
