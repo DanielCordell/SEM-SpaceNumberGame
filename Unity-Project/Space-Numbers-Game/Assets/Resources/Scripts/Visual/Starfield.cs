@@ -49,8 +49,6 @@ public class Starfield : MonoBehaviour
 		{
 			Vector3 pos = stars[i].position + transform.position;
 			pos += Vector3.down * starSpeed * Time.deltaTime;
-			if		(pos.x < (cameraTransform.position.x - xOffset)) pos.x += starFieldWidth;
-			else if (pos.x > (cameraTransform.position.x + xOffset)) pos.x -= starFieldWidth;
 			if		(pos.y < (cameraTransform.position.y - yOffset)) pos.y += starFieldHeight;
 			else if (pos.y > (cameraTransform.position.y + yOffset)) pos.y -= starFieldHeight;
 			stars[i].position = pos - transform.position;
