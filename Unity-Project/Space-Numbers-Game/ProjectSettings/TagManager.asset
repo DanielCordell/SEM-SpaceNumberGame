@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - AsteroidSpawnPos
+  - Asteroid
+  - GameHandler
+  - QuestionHandler
+  - Shield
+  - shield_full
+  - shield_destoryed
+  - shield_1_3
+  - shield_2_3
   layers:
   - Default
   - TransparentFX
