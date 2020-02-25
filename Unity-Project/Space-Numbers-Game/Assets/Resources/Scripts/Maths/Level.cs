@@ -50,7 +50,8 @@ public class Level
             throw new ArgumentException("numberRanges Length != operators Length!\n numberRanges: " + numberRanges.Length + " operators Length: " + operators.Length);
         if (visible.Count(it => !it) == 0)
             throw new ArgumentException("visible needs at least one false value, otherwise the question doesn't make sense!");
-
+        if (operators[operators.Length - 1] != Operator.Equals)
+            throw new ArgumentException("Last operator must be equals, instead found " + operators[operators.Length - 1].ToOpString());
 
         this.levelNum = levelNum;
         this.numberRanges = numberRanges;
@@ -68,10 +69,11 @@ public class Level
             int chosen = numberRanges[i][index];
             questionNumbersNoAnswer[i] = chosen;
 
-            // Ensure we don't get any duplicates by removing the number from the range!
+            // Ensure we don't get any (more than twice) duplicates by removing the number from the range, unless that leaves us with nothing in the list!
+            // This means numbers can appear twice in an expression, but no more times, unless there's no other number to choose.
             foreach (List<int> range in numberRanges)
             {
-                range.Remove(chosen);
+                if (range.Count > 1 && questionNumbersNoAnswer.Count(it => it == chosen) > 2) range.Remove(chosen);
             }
         }
 
