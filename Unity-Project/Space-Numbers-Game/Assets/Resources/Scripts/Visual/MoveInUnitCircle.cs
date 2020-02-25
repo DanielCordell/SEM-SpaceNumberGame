@@ -25,11 +25,9 @@ public class MoveInUnitCircle : MonoBehaviour
     {
         timeMoved += Time.deltaTime;
         bool hasFinishedMove = timeMoved >= timeForMove;
-        Debug.Log(timeMoved.ToString() + " " + timeForMove.ToString());
         transform.position = Vector3.Lerp(lerpStartPosition, moveToPosition, hasFinishedMove ? 1 : timeMoved / timeForMove);
         if (hasFinishedMove)
         {
-            Debug.Log("HasFinishedMove");
             timeMoved = 0;
             moveToPosition = GetNewTargetPosition();
             lerpStartPosition = transform.position;
