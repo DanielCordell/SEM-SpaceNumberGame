@@ -5,7 +5,6 @@ using UnityEngine;
 using NCalc;
 public class Level
 {
-
     // The operators that will be used in this question, in the order they will be used in.
     public readonly Operator[] operatorsUsed;
 
@@ -23,6 +22,12 @@ public class Level
 
     // The maths statement string this question is based on, with everything filled in, for debugging. (e.g. "5+4=9")
     public String statementString;
+
+    // Find where the division signs are
+    public static int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
+    {
+        return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
+    }
 
     // Gaps are stored as false, count the number of falses.
     public int GetNumberOfGaps()
@@ -43,6 +48,10 @@ public class Level
             throw new ArgumentException("numberRanges Length + 1 != visible Length!\n numberRanges: " + numberRanges.Length + " visibile Length: " + visible.Count);
         if (numberRanges.Length != operators.Length)
             throw new ArgumentException("numberRanges Length != operators Length!\n numberRanges: " + numberRanges.Length + " operators Length: " + operators.Length);
+        if (visible.Count(it => !it) == 0)
+            throw new ArgumentException("visible needs at least one false value, otherwise the question doesn't make sense!");
+        if (operators[operators.Length - 1] != Operator.Equals)
+            throw new ArgumentException("Last operator must be equals, instead found " + operators[operators.Length - 1].ToOpString());
 
         this.levelNum = levelNum;
         this.numberRanges = numberRanges;
@@ -60,15 +69,16 @@ public class Level
             int chosen = numberRanges[i][index];
             questionNumbersNoAnswer[i] = chosen;
 
-            // Ensure we don't get any duplicates by removing the number from the range!
+            // Ensure we don't get any (more than twice) duplicates by removing the number from the range, unless that leaves us with nothing in the list!
+            // This means numbers can appear twice in an expression, but no more times, unless there's no other number to choose.
             foreach (List<int> range in numberRanges)
             {
-                range.Remove(chosen);
+                if (range.Count > 1 && questionNumbersNoAnswer.Count(it => it == chosen) > 2) range.Remove(chosen);
             }
         }
 
         // Generate expression from chosen numbers
-        String expressionString = GenerateExpressionString(questionNumbersNoAnswer);
+        String expressionString = GenerateExpressionString(questionNumbersNoAnswer, ref operatorsUsed);
         Debug.Log("Generated Expression: " + expressionString);
 
         // Turning division into a multiplication
@@ -86,14 +96,8 @@ public class Level
                 while ((questionNumbersNoAnswer[indexOfDvisionSigns[i]] % questionNumbersNoAnswer[indexOfDvisionSigns[i] + 1]) != 0)
                     questionNumbersNoAnswer[indexOfDvisionSigns[i]] += rand.Next(0, 4);
             }
-            expressionString = GenerateExpressionString(questionNumbersNoAnswer);
+            expressionString = GenerateExpressionString(questionNumbersNoAnswer, ref operatorsUsed);
             Debug.Log("Regenerated Expression: " + expressionString);
-        }
-
-        // Find where the division signs are
-        int[] FindIndexOfDivisionSign(Operator[] operatorsUsed)
-        {
-            return operatorsUsed.Select((op, i) => op == Operator.Divide ? i : -1).Where(i => i != -1).ToArray();
         }
 
         // Calculate result of expression
@@ -120,7 +124,8 @@ public class Level
     }
 
     // From our picked numbers, generate the expression string. (e.g. "5+1/3*4")
-    private String GenerateExpressionString(int?[] questionNumbersNoAnswer)
+    // Make any necessary changes to the operatorsUsed to fix this.
+    public static String GenerateExpressionString(int?[] questionNumbersNoAnswer, ref Operator[] operatorsUsed)
     {
         String expression = "";
         System.Random rand = new System.Random();
@@ -130,6 +135,7 @@ public class Level
             Debug.Log("questionNumbersNoAnswer: " + questionNumbersNoAnswer[i]);
             if (operatorsUsed[i] == Operator.Equals) return expression; // Don't add the equals to the 'expression', as we want an expression not a statement.
             // Make sure no consecutive division
+            // TODO this should be refactored out of here!
             if ((operatorsUsed[i] == Operator.Divide) && (operatorsUsed[i + 1] == Operator.Divide))
             {
                 operatorsUsed[i + 1] = (Operator) rand.Next(0, 3);
