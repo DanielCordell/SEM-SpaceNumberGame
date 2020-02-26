@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Blank : MonoBehaviour
 {
-    int? Value;
+    int? value;
     Text text;
 
     // Start is called before the first frame update
@@ -17,21 +17,26 @@ public class Blank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        text.text = Value == null ? "" : Value.ToString();
+        text.text = value == null ? "" : value.ToString();
     }
 
     public int? GetValue()
     {
-        return Value;
+        return value;
     }
 
     public void SetValue(int input)
     {
-        Value = input;
+        value = input;
+    }
+
+    public bool IsEmpty()
+    {
+        return value == null;
     }
 
     public void ClearValue()
     {
-        Value = null;
+        value = null;
     }
 }

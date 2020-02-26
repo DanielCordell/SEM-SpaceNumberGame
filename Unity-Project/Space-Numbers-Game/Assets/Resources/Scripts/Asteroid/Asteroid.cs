@@ -11,6 +11,7 @@ public class Asteroid : MonoBehaviour
     AudioClip destroySound;
     AudioClip selectSound;
     Animator animator;
+    Question question;
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class Asteroid : MonoBehaviour
         crosshair = transform.Find("NoRotation/Crosshair").gameObject;
         crosshair.SetActive(Selected);
         animator = gameObject.transform.Find("NoRotation/Explosion").gameObject.GetComponent<Animator>();
+        question = GameObject.Find("Question").gameObject.GetComponent<Question>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,16 @@ public class Asteroid : MonoBehaviour
         Selected =! Selected;
         crosshair.SetActive(Selected);
         audioSource.PlayOneShot(selectSound);
+
+        if (Selected)
+        {
+            question.FillBlank(Value);
+        } 
+        else
+        {
+            question.ClearBlank(Value);
+        }
+
     }
 
     public void Explode()
