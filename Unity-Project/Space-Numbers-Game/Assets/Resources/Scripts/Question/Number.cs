@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Number : Item
+public class Number : MonoBehaviour
 {
-    private int value;
+    int value;
+    Text text;
+
     void Start()
     {
-        value = 12;
         text = gameObject.transform.Find("Text").gameObject.GetComponent<Text>();
     }
 
@@ -17,10 +18,10 @@ public class Number : Item
     {   
         text.text = value.ToString();
     }
-    
-    public Number(int num)
+
+    public void SetValue(int input) 
     {
-        value = num;
+        value = input;
     }
 
     public int GetValue()

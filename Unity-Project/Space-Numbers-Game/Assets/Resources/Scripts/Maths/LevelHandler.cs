@@ -74,6 +74,21 @@ public class LevelHandler : MonoBehaviour
 
     }
 
+    public int[] GetQuestionNumbers()
+    {
+        return currentLevel.questionNumbers;
+    }
+
+    public Operator[] GetOperatorsUsed()
+    {
+        return currentLevel.operatorsUsed;
+    }
+
+    public List<bool> GetVisible()
+    {
+        return currentLevel.visible;
+    }
+
     Level GenerateLevel(int level)
     {
         switch (level)

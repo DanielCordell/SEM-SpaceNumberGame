@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Symbol : Item
+public class Symbol : MonoBehaviour
 {
-    private Operator value;
+    Operator value;
+    Text text;
 
     void Start()
     {
@@ -17,6 +18,11 @@ public class Symbol : Item
     void Update()
     {   
         text.text = value.ToString();
+    }
+
+    public void SetValue(Operator op)
+    {
+        value = op;
     }
 
     public Operator GetValue()

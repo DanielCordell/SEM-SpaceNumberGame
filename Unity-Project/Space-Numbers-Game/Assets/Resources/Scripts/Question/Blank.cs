@@ -3,35 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Blank : Item
+public class Blank : MonoBehaviour
 {
-    int? value;
+    int? Value;
+    Text text;
 
     // Start is called before the first frame update
     void Start()
     {
-        value = 69;
         text = gameObject.transform.Find("Text").gameObject.GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {   
-        text.text = value == null ? "" : value.ToString();
+        text.text = Value == null ? "" : Value.ToString();
     }
 
-    public int? GetValue() 
+    public int? GetValue()
     {
-        return value;
+        return Value;
     }
 
-    public void SetValue(int input) 
+    public void SetValue(int input)
     {
-        value = input;
+        Value = input;
     }
 
-    public void ClearValue() 
+    public void ClearValue()
     {
-        value = null;
+        Value = null;
     }
 }
