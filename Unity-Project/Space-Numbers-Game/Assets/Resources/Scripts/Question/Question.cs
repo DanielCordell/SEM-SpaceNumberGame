@@ -14,13 +14,15 @@ public class Question : MonoBehaviour
     public GameObject numberPrefab;
     public GameObject symbolPrefab;
 
+    public float gapBetweenItems;
+
     // Start is called before the first frame update
     void Start()
     {
         // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
         // var visible = levelHandler.GetVisible();
         QuestionString = "1+2=4";
-        var visible = new List<bool>{true, false, false};
+        var visible = new List<bool>{false, true, false};
         SplitQuestion(QuestionString, visible);
         PositionQuestionComponents();
     }
@@ -31,7 +33,7 @@ public class Question : MonoBehaviour
 
     }
 
-    void SplitQuestion(string question, List<bool> blanks)
+    void SplitQuestion(string question, List<bool> visible)
     {
         var regex = "(?<=[-+*/=])|(?=[-+*/=])";
         var questionList = Regex.Split(question, regex).ToList();
@@ -45,21 +47,19 @@ public class Question : MonoBehaviour
                 obj = Instantiate(symbolPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 Operator op = value.ToString().ToOperator();
                 obj.GetComponent<Symbol>().SetValue(op);
-                obj.transform.parent = gameObject.transform;
             } 
-            else if (blanks[index/2])
+            else if (!visible[index/2])
             {
                 Debug.Log("Creating a blank with value: "+ value);
                 obj = Instantiate(blankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                obj.transform.parent = gameObject.transform;
             }
             else
             {
                 Debug.Log("Creating a number with value: "+ value);
                 obj = Instantiate(numberPrefab);
                 obj.GetComponent<Number>().SetValue(int.Parse(value));
-                obj.transform.parent = gameObject.transform;
             }
+            obj.transform.SetParent(gameObject.transform, false);
 
             return obj;
         }).ToList();
@@ -72,8 +72,9 @@ public class Question : MonoBehaviour
         int i = 0;
         foreach (var child in children)
         {
-            float horizontalOffset = -600 + (10 * i);
-            child.position = new Vector3(horizontalOffset, -850, 0);
+            if (child == gameObject.transform) continue;
+            float horizontalOffset = (gapBetweenItems * i);
+            child.localPosition = new Vector3(horizontalOffset, 0, -10);
             i++;
         }
     }
