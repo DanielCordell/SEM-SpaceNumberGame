@@ -1419,7 +1419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554487101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1797,9 +1797,13 @@ MonoBehaviour:
   Items: []
   Answer: 0
   QuestionString: 
-  blankPrefab: {fileID: 0}
-  numberPrefab: {fileID: 0}
-  symbolPrefab: {fileID: 0}
+  blankPrefab: {fileID: 7678133439809082547, guid: 4579570c4189a412bbe8b81dab0de013,
+    type: 3}
+  numberPrefab: {fileID: 6007707735601872013, guid: 6b60dda83f42b4f48a02e075db1c8ff3,
+    type: 3}
+  symbolPrefab: {fileID: 104491131009576776, guid: 9101529721a9a441cbe3e99cd9b072c4,
+    type: 3}
+  gapBetweenItems: 15
 --- !u!82 &2003115895
 AudioSource:
   m_ObjectHideFlags: 0
