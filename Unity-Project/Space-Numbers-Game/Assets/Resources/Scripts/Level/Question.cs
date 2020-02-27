@@ -122,7 +122,7 @@ public class Question : MonoBehaviour
         }
     }
 
-    public string GetStatement()
+    public string GetExpression()
     {
         string statement = "";
 
@@ -147,6 +147,7 @@ public class Question : MonoBehaviour
             var symbol = item.gameObject.GetComponentInChildren<Symbol>();
             if (symbol != null)
             {
+                if (symbol.GetValue() == Operator.Equals) break;
                 statement = statement + symbol.GetValue().ToOpString();
                 continue;
             }
@@ -154,5 +155,23 @@ public class Question : MonoBehaviour
 
         Debug.Log(statement);
         return statement;
+    }
+
+    public int? GetAnswer() {
+        var item = Items.Last();
+
+        var blank = item.gameObject.GetComponentInChildren<Blank>();
+        if (blank != null)
+        {
+            return blank.GetValue();
+        }
+
+        var number = item.gameObject.GetComponentInChildren<Number>();
+        if (number != null)
+        {
+            return number.GetValue();
+        }
+        Debug.Log("This shouldn't happen, last item is not a blank or a number!");
+        return null;
     }
 }

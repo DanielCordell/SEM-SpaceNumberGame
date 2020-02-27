@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using NCalc;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -93,8 +94,21 @@ public class LevelHandler : MonoBehaviour
 
     public bool ValidateAnswer()
     {
+        string expression = question.GetExpression();
+        int? answer = question.GetAnswer();
 
-        return false;
+        if (answer == null) return false;
+        int intAnswer = answer.GetValueOrDefault();
+        
+        try {
+            int calcAnswer = Convert.ToInt32(new Expression(expression).Evaluate());
+            return calcAnswer == answer;
+        }
+        catch (Exception e) {
+            Debug.Log("Exception thrown when validating answer, assuming invalid!");
+            Debug.Log(e.Message);
+            return false;
+        }
     }
 
     Level GenerateLevel(int level)
