@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Asteroid : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Value = int.Parse(gameObject.transform.Find("NoRotation/Canvas/Text").gameObject.GetComponent<Text>().text);
         audioSource = GetComponent<AudioSource>();
         selectSound = Resources.Load("Audio/Sound/select") as AudioClip;
         destroySound = Resources.Load("Audio/Sound/explode") as AudioClip;
