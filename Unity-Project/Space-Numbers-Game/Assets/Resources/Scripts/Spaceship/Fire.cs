@@ -1,22 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using PathCreation;
+using System.Collections.Generic;
 
 public class Fire : MonoBehaviour
 {
-    Button fireBtn;
-
+    private Button fireBtn;
     private AudioSource audioSource;
+    private Text hintText;
 
     private AudioClip soundShoot;
     private AudioClip soundWrongAnswer;
 
-    private Text hintText;
-
-    LevelHandler levelHandler;
+    private LevelHandler levelHandler;
 
     private bool hasFired;
-
     private bool areGapsFilled;
+
+    public GameObject laserPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -58,10 +60,11 @@ public class Fire : MonoBehaviour
     {
         Debug.Log("Firing!");
         if (hasFired || !areGapsFilled) return;
-        if (levelHandler.ValidateAnswer())
+        if (levelHandler.ValidateAnswer() || true)
         {
             audioSource.clip = soundShoot;
             hintText.text = "Good  Job!";
+            FireLasers();
         }
         else
         {
@@ -70,5 +73,18 @@ public class Fire : MonoBehaviour
         }
         audioSource.Play();
         hasFired = true;
+    }
+
+    private void FireLasers()
+    {
+        Vector3 spawnPosition = transform.Find("LaserStart").position;
+        List<GameObject> selectedAsteroids = GameObject.FindGameObjectsWithTag("Asteroid").Where(it => it.GetComponent<Asteroid>().Selected).ToList();
+        selectedAsteroids.ForEach(it => {
+            GameObject laser = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
+            laser.GetComponentInChildren<LaserMove>().asteroidTarget = it;
+            PathCreator pathCreator = laser.GetComponent<PathCreator>();
+            Vector3 point = new Vector3(it.transform.position.x - spawnPosition.x, it.transform.position.y - spawnPosition.y, 0);
+            pathCreator.bezierPath = new BezierPath(new Vector3[3] { pathCreator.bezierPath.GetPoint(0), pathCreator.bezierPath.GetPoint(1), point }, false, PathSpace.xy);
+        });
     }
 }
