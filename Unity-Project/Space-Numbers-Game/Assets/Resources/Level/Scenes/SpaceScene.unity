@@ -1803,7 +1803,7 @@ MonoBehaviour:
     type: 3}
   symbolPrefab: {fileID: 104491131009576776, guid: 9101529721a9a441cbe3e99cd9b072c4,
     type: 3}
-  gapBetweenItems: 15
+  gapBetweenItems: 40
 --- !u!82 &2003115895
 AudioSource:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class Question : MonoBehaviour
         // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
         // var visible = levelHandler.GetVisible();
         QuestionString = "1+2=4";
-        var visible = new List<bool>{false, true, false};
+        var visible = new List<bool>{false, true, true};
         SplitQuestion(QuestionString, visible);
         PositionQuestionComponents();
     }
@@ -67,13 +67,13 @@ public class Question : MonoBehaviour
 
     void PositionQuestionComponents()
     {
-        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        // Transform[] children = gameObject.GetComponentsInChildren<Transform>();
         
         int i = 0;
-        foreach (var child in children)
+        foreach (Transform child in gameObject.transform)
         {
             if (child == gameObject.transform) continue;
-            float horizontalOffset = (gapBetweenItems * i);
+            float horizontalOffset = -110 + (gapBetweenItems * i);
             child.localPosition = new Vector3(horizontalOffset, 0, -10);
             i++;
         }
