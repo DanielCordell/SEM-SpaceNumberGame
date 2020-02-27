@@ -76,7 +76,7 @@ public class Shield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        countWrong = 3;
+        countWrong = 1;
         UpdateHealthBar(countWrong);
     }
 }
