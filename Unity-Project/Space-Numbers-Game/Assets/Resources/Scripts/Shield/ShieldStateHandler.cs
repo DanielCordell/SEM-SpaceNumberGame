@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 
 public class ShieldStateHandler : MonoBehaviour
 {
@@ -63,8 +64,9 @@ public class ShieldStateHandler : MonoBehaviour
     //TODO
     public int UpdateCountWrong()
     {
-        // [test] receive countWrong
-        countWrong = 2;
+        // [testing] receive countWrong
+        countWrong = (new System.Random()).Next(0, 4);
+        Thread.Sleep(500);
         return countWrong;
     }
 
