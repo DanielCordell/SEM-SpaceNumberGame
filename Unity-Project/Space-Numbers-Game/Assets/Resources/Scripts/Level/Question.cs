@@ -21,10 +21,10 @@ public class Question : MonoBehaviour
     {
         // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
         // var visible = levelHandler.GetVisible();
-        QuestionString = "1+2+6=9";
-        var visible = new List<bool>{false, true, false, true};
-        SplitQuestion(QuestionString, visible);
-        PositionQuestionComponents();
+        // QuestionString = "1+2+6=9";
+        // var visible = new List<bool>{false, true, false, true};
+        // SplitQuestion(QuestionString, visible);
+        // PositionQuestionComponents();
     }
 
     // Update is called once per frame

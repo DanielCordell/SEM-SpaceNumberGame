@@ -18,7 +18,6 @@ public class LevelHandler : MonoBehaviour
         // Current demo code to generate a level
         currentLevel = GenerateLevel(1);
         SetupLevel(ref currentLevel);
-        question = gameObject.transform.Find("Canvas/Question").gameObject.GetComponent<Question>();
         question.SetQuestion(currentLevel.statementString, GetVisible());
     }
 

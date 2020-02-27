@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroid: {fileID: 835836165160479728, guid: 8c567228f1998468d909b1b02439aa7f, type: 3}
+  question: {fileID: 2003115894}
   extraAsteroids: 4
 --- !u!4 &366418743 stripped
 Transform:
@@ -2155,7 +2156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 179.81}
+  m_AnchoredPosition: {x: 0, y: 187.3}
   m_SizeDelta: {x: 280, y: 60.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2003115893
