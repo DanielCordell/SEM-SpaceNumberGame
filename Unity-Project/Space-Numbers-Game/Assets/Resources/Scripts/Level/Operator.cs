@@ -8,7 +8,8 @@ public enum Operator
     Divide,
     Equals
 }
-static class OperatorExtension
+
+public static class OperatorExtension
 {
     public static string ToOpString(this Operator op)
     {
@@ -20,6 +21,19 @@ static class OperatorExtension
             case Operator.Divide:   return "/";
             case Operator.Equals:   return "=";
             default: throw new ArgumentException("Bad Operator: " + op.ToString());
+        }
+    }
+
+    public static Operator ToOperator(this string str)
+    {
+        switch (str)
+        {
+            case "+": return Operator.Add;
+            case "-": return Operator.Subtract;
+            case "*": return Operator.Multiply;
+            case "/": return Operator.Divide;
+            case "=": return Operator.Equals;
+            default: throw new ArgumentException("String \"" + str + "\" not a valid operator.");
         }
     }
 }

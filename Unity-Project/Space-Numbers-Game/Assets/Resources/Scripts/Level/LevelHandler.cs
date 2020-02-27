@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using NCalc;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LevelHandler : MonoBehaviour
     public const int MAX_LEVEL = 15;
 
     public GameObject asteroid;
+    public Question question;
     public int extraAsteroids;
 
     // Start is called before the first frame update
@@ -17,6 +19,7 @@ public class LevelHandler : MonoBehaviour
         // Current demo code to generate a level
         currentLevel = GenerateLevel(1);
         SetupLevel(ref currentLevel);
+        question.SetQuestion(currentLevel.statementString, GetVisible());
     }
 
     void SetupLevel(ref Level level)
@@ -70,8 +73,42 @@ public class LevelHandler : MonoBehaviour
     {
         GameObject a = Instantiate(asteroid, positionObject.GetComponent<Transform>().position, Quaternion.identity);
         a.transform.Rotate(0, 0, rand.Next(360));
-        a.transform.Find("Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
+        a.transform.Find("NoRotation/Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
 
+    }
+
+    public int[] GetQuestionNumbers()
+    {
+        return currentLevel.questionNumbers;
+    }
+
+    public Operator[] GetOperatorsUsed()
+    {
+        return currentLevel.operatorsUsed;
+    }
+
+    public List<bool> GetVisible()
+    {
+        return currentLevel.visible;
+    }
+
+    public bool ValidateAnswer()
+    {
+        string expression = question.GetExpression();
+        int? answer = question.GetAnswer();
+
+        if (answer == null) return false;
+        int intAnswer = answer.GetValueOrDefault();
+        
+        try {
+            int calcAnswer = Convert.ToInt32(new Expression(expression).Evaluate());
+            return calcAnswer == answer;
+        }
+        catch (Exception e) {
+            Debug.Log("Exception thrown when validating answer, assuming invalid!");
+            Debug.Log(e.Message);
+            return false;
+        }
     }
 
     Level GenerateLevel(int level)
