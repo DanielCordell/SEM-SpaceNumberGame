@@ -9,6 +9,7 @@ public class LevelHandler : MonoBehaviour
     public const int MAX_LEVEL = 15;
 
     public GameObject asteroid;
+    public Question question;
     public int extraAsteroids;
 
     // Start is called before the first frame update
@@ -17,6 +18,8 @@ public class LevelHandler : MonoBehaviour
         // Current demo code to generate a level
         currentLevel = GenerateLevel(1);
         SetupLevel(ref currentLevel);
+        question = gameObject.transform.Find("Canvas/Question").gameObject.GetComponent<Question>();
+        question.SetQuestion(currentLevel.statementString, GetVisible());
     }
 
     void SetupLevel(ref Level level)
@@ -87,6 +90,12 @@ public class LevelHandler : MonoBehaviour
     public List<bool> GetVisible()
     {
         return currentLevel.visible;
+    }
+
+    public bool ValidateAnswer()
+    {
+
+        return false;
     }
 
     Level GenerateLevel(int level)
