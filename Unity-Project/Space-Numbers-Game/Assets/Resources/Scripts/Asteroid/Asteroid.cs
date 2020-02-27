@@ -30,23 +30,28 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 
     void OnMouseDown()
     {
-        Selected =! Selected;
-        crosshair.SetActive(Selected);
-        audioSource.PlayOneShot(selectSound);
-
-        if (Selected)
+        Debug.Log(Selected);
+        if (!Selected)
         {
-            question.FillBlank(Value);
+            if (question.FillBlank(Value))
+            {           
+                Selected =! Selected;
+                crosshair.SetActive(Selected);
+                audioSource.PlayOneShot(selectSound);
+            }
         } 
         else
         {
             question.ClearBlank(Value);
+            Selected =! Selected;
+            crosshair.SetActive(Selected);
+            audioSource.PlayOneShot(selectSound);
         }
-
     }
 
     public void Explode()

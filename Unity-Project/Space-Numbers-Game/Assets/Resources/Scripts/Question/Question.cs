@@ -84,18 +84,22 @@ public class Question : MonoBehaviour
         return Regex.Split(question, regex).Select(int.Parse).ToList();
     }
 
-    public void FillBlank(int value)
+    public bool FillBlank(int value)
     {
         var blanks = gameObject.GetComponentsInChildren<Blank>();
+        var set = false;
 
         foreach (Blank blank in blanks)
         {
             if (blank.IsEmpty())
             {
                 blank.SetValue(value);
+                set = true;
                 break;
             }
         }
+
+        return set;
     }
 
     public void ClearBlank(int value)
