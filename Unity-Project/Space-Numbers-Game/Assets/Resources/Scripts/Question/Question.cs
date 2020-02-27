@@ -21,8 +21,8 @@ public class Question : MonoBehaviour
     {
         // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
         // var visible = levelHandler.GetVisible();
-        QuestionString = "1+2=4";
-        var visible = new List<bool>{false, true, true};
+        QuestionString = "1+2+6=9";
+        var visible = new List<bool>{false, true, false, true};
         SplitQuestion(QuestionString, visible);
         PositionQuestionComponents();
     }
@@ -114,5 +114,39 @@ public class Question : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public string GetStatement()
+    {
+        string statement = "";
+
+        foreach (var item in Items)
+        {
+            var blank = item.gameObject.GetComponentInChildren<Blank>();
+            if (blank != null)
+            {
+                var blankVal = blank.GetValue();
+                var blankString =  blankVal == null ? "" : blank.GetValue().ToString();
+                statement = statement + blankString;
+                continue;
+            }
+
+            var number = item.gameObject.GetComponentInChildren<Number>();
+            if (number != null)
+            {
+                statement = statement + number.GetValue().ToString();
+                continue;
+            }
+
+            var symbol = item.gameObject.GetComponentInChildren<Symbol>();
+            if (symbol != null)
+            {
+                statement = statement + symbol.GetValue().ToOpString();
+                continue;
+            }
+        }
+
+        Debug.Log(statement);
+        return statement;
     }
 }
