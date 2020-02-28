@@ -34,7 +34,7 @@ public class LaserMove : MonoBehaviour
         Debug.Log("Test");
         if (collision.gameObject == asteroidTarget)
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Asteroid>().Explode();
             Destroy(transform.parent.gameObject);
         }
     }
