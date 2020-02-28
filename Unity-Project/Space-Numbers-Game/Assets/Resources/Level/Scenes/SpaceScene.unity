@@ -295,6 +295,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 623212766}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &439799915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 439799916}
+  - component: {fileID: 439799917}
+  m_Layer: 0
+  m_Name: ShieldStateHandler
+  m_TagString: ShieldStateHandler
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &439799916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439799915}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.24097878, y: 0.6294808, z: -14.069824}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &439799917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439799915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bffd51ea63b84b4381ecb9365aab357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shields: {fileID: 0}
+  healthBars: {fileID: 0}
+  countWrong: 0
 --- !u!1 &448007523
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +372,7 @@ RectTransform:
   - {fileID: 387173482}
   - {fileID: 1407697702}
   m_Father: {fileID: 1558008561}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -568,7 +614,7 @@ Transform:
   - {fileID: 1141563267}
   - {fileID: 1942670400}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &601554510 stripped
 Transform:
@@ -1410,7 +1456,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1407697702}
   - component: {fileID: 1407697703}
-  - component: {fileID: 1407697704}
   m_Layer: 5
   m_Name: HealthBars
   m_TagString: HealthBars
@@ -1487,21 +1532,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1407697704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407697701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bffd51ea63b84b4381ecb9365aab357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shields: {fileID: 0}
-  healthBars: {fileID: 0}
-  countWrong: 0
 --- !u!1001 &1495675146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1772,8 +1802,8 @@ RectTransform:
   - {fileID: 2011377089}
   - {fileID: 495799941}
   - {fileID: 1633440921}
-  - {fileID: 601554510}
   - {fileID: 448007524}
+  - {fileID: 601554510}
   - {fileID: 1844116301}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -2607,7 +2637,7 @@ Transform:
   - {fileID: 1201915669}
   - {fileID: 1646012882}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2086093098 stripped
 Transform:

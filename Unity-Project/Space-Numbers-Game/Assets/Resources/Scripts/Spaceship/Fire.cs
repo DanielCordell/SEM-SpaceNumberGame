@@ -15,16 +15,20 @@ public class Fire : MonoBehaviour
 
     private LevelHandler levelHandler;
 
+    private ShieldStateHandler ShieldStateHandler;
+
     private bool hasFired;
     private bool areGapsFilled;
+    private bool isWrongAnswer;
 
     public GameObject laserPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        isWrongAnswer = false;
         levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-
+        ShieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>();
         soundWrongAnswer = Resources.Load<AudioClip>("audio/sound/wrong_answer");
         soundShoot = Resources.Load<AudioClip>("audio/sound/shoot");
         audioSource = GetComponent<AudioSource>();
@@ -47,11 +51,13 @@ public class Fire : MonoBehaviour
     {
         areGapsFilled = levelHandler.AreAllGapsFilled();
         if (!hasFired)
-        {
+        { 
             if (areGapsFilled)
                 hintText.text = "Click  To  Fire!";
             else
                 hintText.text = "";
+            if (isWrongAnswer)
+                hintText.text = "Wrong  Answer!";
         }
     }
 
@@ -60,19 +66,23 @@ public class Fire : MonoBehaviour
     {
         Debug.Log("Firing!");
         if (hasFired || !areGapsFilled) return;
-        if (levelHandler.ValidateAnswer() || true)
+        if (levelHandler.ValidateAnswer())
         {
             audioSource.clip = soundShoot;
+            isWrongAnswer = false;
             hintText.text = "Good  Job!";
             FireLasers();
+            hasFired = true;
         }
         else
         {
             audioSource.clip = soundWrongAnswer;
-            hintText.text = "Wrong  Answer!";
+            isWrongAnswer = true;
+            Debug.Log(hintText.text);
+            ShieldStateHandler.AddCountWrong();
+            hasFired = false;
         }
         audioSource.Play();
-        hasFired = true;
     }
 
     private void FireLasers()

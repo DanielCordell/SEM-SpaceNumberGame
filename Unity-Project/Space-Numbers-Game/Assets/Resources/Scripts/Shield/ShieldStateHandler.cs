@@ -38,6 +38,11 @@ public class ShieldStateHandler : MonoBehaviour
         shieldSR.sprite = Resources.Load("Art/Textures/shieldsFull", typeof(Sprite)) as Sprite;
     }
 
+    public void AddCountWrong()
+    {
+        countWrong += 1;
+    }
+
     public void UpdateShieldState(int currentWrongTimes)
     {
         // according to the currentWrongTimes, change the current sprites to show
@@ -64,7 +69,6 @@ public class ShieldStateHandler : MonoBehaviour
     public int UpdateCountWrong()
     {
         // [testing] receive countWrong
-        countWrong = (new System.Random()).Next(0, 4);
         return countWrong;
     }
 
