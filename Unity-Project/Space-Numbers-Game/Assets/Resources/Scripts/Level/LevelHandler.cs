@@ -111,6 +111,11 @@ public class LevelHandler : MonoBehaviour
         }
     }
 
+    public bool AreAllGapsFilled()
+    {
+        return question.AreAllGapsFilled();
+    }
+
     Level GenerateLevel(int level)
     {
         switch (level)
