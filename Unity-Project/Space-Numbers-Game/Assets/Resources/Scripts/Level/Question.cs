@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class Question : MonoBehaviour
 {
@@ -155,6 +156,11 @@ public class Question : MonoBehaviour
 
         Debug.Log(statement);
         return statement;
+    }
+
+    public bool AreAllGapsFilled()
+    {
+        return Items.Select(it => it.GetComponentInChildren<Blank>()).Where(it => it != null).All(it => it.GetValue() != null);
     }
 
     public int? GetAnswer() {
