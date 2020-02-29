@@ -14,21 +14,19 @@ public class Fire : MonoBehaviour
     private AudioClip soundWrongAnswer;
 
     private LevelHandler levelHandler;
-
-    private ShieldStateHandler ShieldStateHandler;
+    
+    private ShieldStateHandler shieldStateHandler;
 
     private bool hasFired;
     private bool areGapsFilled;
-    private bool isWrongAnswer;
 
     public GameObject laserPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        isWrongAnswer = false;
         levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-        ShieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>();
+
         soundWrongAnswer = Resources.Load<AudioClip>("audio/sound/wrong_answer");
         soundShoot = Resources.Load<AudioClip>("audio/sound/shoot");
         audioSource = GetComponent<AudioSource>();
@@ -38,6 +36,7 @@ public class Fire : MonoBehaviour
 
         hintText = GetComponentInChildren<Text>();
 
+        shieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>()
         Reset();
     }
 
@@ -51,13 +50,11 @@ public class Fire : MonoBehaviour
     {
         areGapsFilled = levelHandler.AreAllGapsFilled();
         if (!hasFired)
-        { 
+        {
             if (areGapsFilled)
                 hintText.text = "Click  To  Fire!";
             else
                 hintText.text = "";
-            if (isWrongAnswer)
-                hintText.text = "Wrong  Answer!";
         }
     }
 
@@ -69,20 +66,17 @@ public class Fire : MonoBehaviour
         if (levelHandler.ValidateAnswer())
         {
             audioSource.clip = soundShoot;
-            isWrongAnswer = false;
             hintText.text = "Good  Job!";
             FireLasers();
-            hasFired = true;
         }
         else
         {
             audioSource.clip = soundWrongAnswer;
-            isWrongAnswer = true;
-            Debug.Log(hintText.text);
-            ShieldStateHandler.AddCountWrong();
-            hasFired = false;
+            hintText.text = "Wrong  Answer!";
+            shieldStateHandler.AddCountWrong();
         }
         audioSource.Play();
+        hasFired = true;
     }
 
     private void FireLasers()
