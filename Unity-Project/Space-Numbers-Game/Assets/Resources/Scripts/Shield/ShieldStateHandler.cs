@@ -58,17 +58,18 @@ public class ShieldStateHandler : MonoBehaviour
                 healthBarSR.sprite = Resources.Load("Art/Textures/healthBar2", typeof(Sprite)) as Sprite;
                 shieldSR.sprite = Resources.Load("Art/Textures/shields2", typeof(Sprite)) as Sprite;
                 break;
-            default:
+            case 3:
                 healthBarSR.sprite = Resources.Load("Art/Textures/healthBar3", typeof(Sprite)) as Sprite;
                 shieldSR.sprite = Resources.Load("Art/Textures/shields3", typeof(Sprite)) as Sprite;
+                break;
+            default:
+                Debug.Log("This shouldn't happen casue player should have only 3 chances.");
                 break;
         }
     }
 
-    //TODO
     public int UpdateCountWrong()
     {
-        // [testing] receive countWrong
         return countWrong;
     }
 
