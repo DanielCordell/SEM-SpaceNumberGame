@@ -14,6 +14,8 @@ public class Fire : MonoBehaviour
     private AudioClip soundWrongAnswer;
 
     private LevelHandler levelHandler;
+    
+    private ShieldStateHandler shieldStateHandler;
 
     private bool hasFired;
     private bool areGapsFilled;
@@ -34,6 +36,7 @@ public class Fire : MonoBehaviour
 
         hintText = GetComponentInChildren<Text>();
 
+        shieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>();
         Reset();
     }
 
@@ -59,8 +62,10 @@ public class Fire : MonoBehaviour
     private void fireBtnOnClick()
     {
         Debug.Log("Firing!");
+        if (shieldStateHandler.countWrong <= 3)
+            hasFired = false;
         if (hasFired || !areGapsFilled) return;
-        if (levelHandler.ValidateAnswer() || true)
+        if (levelHandler.ValidateAnswer())
         {
             audioSource.clip = soundShoot;
             hintText.text = "Good  Job!";
@@ -70,9 +75,12 @@ public class Fire : MonoBehaviour
         {
             audioSource.clip = soundWrongAnswer;
             hintText.text = "Wrong  Answer!";
+            shieldStateHandler.UpdateShieldState(shieldStateHandler.AddCountWrong());
+            Debug.Log("Cunrrent wrong times: " + shieldStateHandler.countWrong);
         }
-        audioSource.Play();
         hasFired = true;
+        audioSource.Play();
+        
     }
 
     private void FireLasers()
