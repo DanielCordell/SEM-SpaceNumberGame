@@ -36,7 +36,7 @@ public class Fire : MonoBehaviour
 
         hintText = GetComponentInChildren<Text>();
 
-        shieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>()
+        shieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>();
         Reset();
     }
 
