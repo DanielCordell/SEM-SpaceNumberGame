@@ -25,7 +25,6 @@ public class Timer : MonoBehaviour
         startTimer = 60f;
         timerBox = GetComponent<Image>();
         countdown = timerBox.GetComponent<AudioSource>();
-        
     }
    
 
@@ -39,6 +38,8 @@ public class Timer : MonoBehaviour
         {
             hasPlayedSound = true;
             countdown.Play();
+            //TODO jump to game over scene
+            Debug.Log("Once the timer is 0, jump to game over scene");
         }
     }
 }

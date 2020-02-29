@@ -62,6 +62,8 @@ public class Fire : MonoBehaviour
     private void fireBtnOnClick()
     {
         Debug.Log("Firing!");
+        if (shieldStateHandler.countWrong <= 3)
+            hasFired = false;
         if (hasFired || !areGapsFilled) return;
         if (levelHandler.ValidateAnswer())
         {
@@ -73,10 +75,12 @@ public class Fire : MonoBehaviour
         {
             audioSource.clip = soundWrongAnswer;
             hintText.text = "Wrong  Answer!";
-            shieldStateHandler.AddCountWrong();
+            shieldStateHandler.UpdateShieldState(shieldStateHandler.AddCountWrong());
+            Debug.Log("Cunrrent wrong times: " + shieldStateHandler.countWrong);
         }
-        audioSource.Play();
         hasFired = true;
+        audioSource.Play();
+        
     }
 
     private void FireLasers()

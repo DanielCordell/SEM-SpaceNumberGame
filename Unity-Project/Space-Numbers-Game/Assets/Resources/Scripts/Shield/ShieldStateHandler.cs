@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ShieldStateHandler : MonoBehaviour
 {
@@ -38,9 +39,10 @@ public class ShieldStateHandler : MonoBehaviour
         shieldSR.sprite = Resources.Load("Art/Textures/shieldsFull", typeof(Sprite)) as Sprite;
     }
 
-    public void AddCountWrong()
+    public int AddCountWrong()
     {
         countWrong += 1;
+        return countWrong;
     }
 
     public void UpdateShieldState(int currentWrongTimes)
@@ -63,19 +65,16 @@ public class ShieldStateHandler : MonoBehaviour
                 shieldSR.sprite = Resources.Load("Art/Textures/shields3", typeof(Sprite)) as Sprite;
                 break;
             default:
-                Debug.Log("This shouldn't happen casue player should have only 3 chances.");
+                //TODO Should jump to game over scene.
+                Debug.Log("Once player gets 3 times wrong, jump to game over scene.");
                 break;
         }
     }
 
-    public int UpdateCountWrong()
-    {
-        return countWrong;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateShieldState(UpdateCountWrong());
+
     }
 }
