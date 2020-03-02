@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator CanCreatePrefab()
+        public IEnumerator CanCreateAsteroidPrefab()
         {
             Assert.DoesNotThrow(() => GameObject.Instantiate(asteroidPrefab));
             yield return null;
