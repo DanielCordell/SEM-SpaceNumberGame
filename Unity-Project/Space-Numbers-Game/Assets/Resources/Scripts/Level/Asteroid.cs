@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Asteroid : MonoBehaviour
 {
     public bool Selected = false;
-    public int Value;
+    public int? Value;
     GameObject crosshair;
     AudioSource audioSource;
     AudioClip destroySound;
@@ -18,7 +18,12 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Value = int.Parse(gameObject.transform.Find("NoRotation/Canvas/Text").gameObject.GetComponent<Text>().text);
+        var asteroidText = gameObject.transform.Find("NoRotation/Canvas/Text").gameObject.GetComponent<Text>().text;
+        
+        int value;
+        if (int.TryParse(asteroidText, out value))
+            Value = value;
+
         audioSource = GetComponent<AudioSource>();
         selectSound = Resources.Load("Audio/Sound/select") as AudioClip;
         destroySound = Resources.Load("Audio/Sound/explode") as AudioClip;
@@ -35,12 +40,12 @@ public class Asteroid : MonoBehaviour
 
     }
 
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         Debug.Log(Selected);
         if (!Selected)
         {
-            if (question.FillBlank(Value))
+            if (question.FillBlank(Value.Value))
             {           
                 Selected =! Selected;
                 crosshair.SetActive(Selected);
@@ -53,7 +58,7 @@ public class Asteroid : MonoBehaviour
         } 
         else
         {
-            question.ClearBlank(Value);
+            question.ClearBlank(Value.Value);
             Selected =! Selected;
             crosshair.SetActive(Selected);
             audioSource.PlayOneShot(selectSound);
