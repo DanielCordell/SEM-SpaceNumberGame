@@ -11,6 +11,10 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+**/InitTestScene*
+Assets/*.unity.meta
+**/InitTestScene637187575253037150.unity.meta
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 

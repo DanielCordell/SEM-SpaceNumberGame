@@ -20,12 +20,7 @@ public class Question : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-        // var visible = levelHandler.GetVisible();
-        // QuestionString = "1+2+6=9";
-        // var visible = new List<bool>{false, true, false, true};
-        // SplitQuestion(QuestionString, visible);
-        // PositionQuestionComponents();
+
     }
 
     // Update is called once per frame
@@ -50,19 +45,16 @@ public class Question : MonoBehaviour
 
             if (Regex.IsMatch(value ,"[-+*/=]"))
             {
-                Debug.Log("Creating a symbol with value: "+ value);
                 obj = Instantiate(symbolPrefab, new Vector3(0, 0, 0), Quaternion.identity);
                 Operator op = value.ToString().ToOperator();
                 obj.GetComponent<Symbol>().SetValue(op);
             } 
             else if (!visible[index/2])
             {
-                Debug.Log("Creating a blank with value: "+ value);
                 obj = Instantiate(blankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             }
             else
             {
-                Debug.Log("Creating a number with value: "+ value);
                 obj = Instantiate(numberPrefab);
                 obj.GetComponent<Number>().SetValue(int.Parse(value));
             }
@@ -73,9 +65,7 @@ public class Question : MonoBehaviour
     }
 
     void PositionQuestionComponents()
-    {
-        // Transform[] children = gameObject.GetComponentsInChildren<Transform>();
-        
+    {   
         int i = 0;
         foreach (Transform child in gameObject.transform)
         {
@@ -154,7 +144,7 @@ public class Question : MonoBehaviour
             }
         }
 
-        Debug.Log(statement);
+        Debug.Log("Current expression is: " + statement);
         return statement;
     }
 
@@ -177,6 +167,7 @@ public class Question : MonoBehaviour
         {
             return number.GetValue();
         }
+        
         Debug.Log("This shouldn't happen, last item is not a blank or a number!");
         return null;
     }
