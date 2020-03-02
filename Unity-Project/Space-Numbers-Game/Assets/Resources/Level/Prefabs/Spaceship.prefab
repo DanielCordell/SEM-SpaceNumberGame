@@ -4974,7 +4974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfbab0a406b527409804651e07432e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 3624995213533017191, guid: ca6075dd57d49ae48ba5937d8e8515fc,
+  laserPrefab: {fileID: 1004896849109777181, guid: 7b51b088f3840394a9d50e34e3f477de,
     type: 3}
 --- !u!82 &2106681894154282641
 AudioSource:
@@ -5103,7 +5103,7 @@ RectTransform:
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 4182960804946284449}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5219,7 +5219,7 @@ RectTransform:
   m_LocalScale: {x: 0.12, y: 0.1, z: 0}
   m_Children: []
   m_Father: {fileID: 4182960804946284449}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
