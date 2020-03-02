@@ -42,7 +42,6 @@ public class Asteroid : MonoBehaviour
 
     public void OnMouseDown()
     {
-        Debug.Log(Selected);
         if (!Selected)
         {
             if (question.FillBlank(Value.Value))
