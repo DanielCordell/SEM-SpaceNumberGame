@@ -59,5 +59,39 @@ namespace AsteroidTests
 
             yield return null;
         }
+
+        [UnityTest]
+        public IEnumerator WhenTheAsteroidIsSelectedTheCrosshairShouldBeVisible()
+        {
+            GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
+            yield return null;
+
+            Asteroid asteroid = asteroidObject.GetComponent<Asteroid>();
+            asteroid.Value = 2;
+            asteroid.Selected = false;
+
+            asteroid.OnMouseDown();
+            var crosshair = asteroidObject.transform.Find("NoRotation/Crosshair").gameObject;
+            Assert.AreEqual(crosshair.activeSelf, true);
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator WhenTheAsteroidIsDeselectedTheCrosshairShouldNotBeVisible()
+        {
+            GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
+            yield return null;
+
+            Asteroid asteroid = asteroidObject.GetComponent<Asteroid>();
+            asteroid.Value = 2;
+            asteroid.Selected = true;
+
+            asteroid.OnMouseDown();
+            var crosshair = asteroidObject.transform.Find("NoRotation/Crosshair").gameObject;
+            Assert.AreEqual(crosshair.activeSelf, false);
+
+            yield return null;
+        }
     }
 }
