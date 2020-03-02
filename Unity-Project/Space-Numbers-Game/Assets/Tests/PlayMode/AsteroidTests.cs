@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 
-namespace AsteroidTests
+namespace Tests
 {
     public class AsteroidTests
     {
