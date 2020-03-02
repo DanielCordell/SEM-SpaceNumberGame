@@ -19,12 +19,7 @@ public class Question : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-        // var visible = levelHandler.GetVisible();
-        // QuestionString = "1+2+6=9";
-        // var visible = new List<bool>{false, true, false, true};
-        // SplitQuestion(QuestionString, visible);
-        // PositionQuestionComponents();
+
     }
 
     // Update is called once per frame
@@ -69,9 +64,7 @@ public class Question : MonoBehaviour
     }
 
     void PositionQuestionComponents()
-    {
-        // Transform[] children = gameObject.GetComponentsInChildren<Transform>();
-        
+    {   
         int i = 0;
         foreach (Transform child in gameObject.transform)
         {
@@ -150,7 +143,7 @@ public class Question : MonoBehaviour
             }
         }
 
-        Debug.Log(statement);
+        Debug.Log("Current expression is: " + statement);
         return statement;
     }
 
