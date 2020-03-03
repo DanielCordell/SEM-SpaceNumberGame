@@ -5,9 +5,11 @@ using UnityEngine;
 public class ButtonHandler : MonoBehaviour
 {
     ParticleSystem[] particleSystems;
+    MoveCamera moveCamera;
     public void Start()
     {
         particleSystems = gameObject.GetComponentsInChildren<ParticleSystem>();
+        moveCamera = Camera.main.GetComponent<MoveCamera>();
     }
 
     public void StartParticles()
@@ -28,6 +30,6 @@ public class ButtonHandler : MonoBehaviour
 
     public void MoveCamera(Transform t)
     {
-        Camera.main.transform.position = t.position;
+        moveCamera.SetMoveTo(t.position);
     }
 }
