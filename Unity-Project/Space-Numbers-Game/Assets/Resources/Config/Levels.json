@@ -23,8 +23,8 @@
             "LevelNo": 3,
             "Difficulty": "Easy",
             "Numbers": [1,2,3,4,5,6,7,8,9,10],
-            "Operators": ["-"],
-            "NoQuestions": 5,
+            "Operators": ["-", "+"],
+            "NoQuestions": 10,
             "NoNumbers": 2,
             "NoBlanks": 1
         },
@@ -32,37 +32,46 @@
             "LevelNo": 4,
             "Difficulty": "Easy",
             "Numbers": [1,2,3,4,5,6,7,8,9,10],
-            "Operators": ["-"],
-            "NoQuestions": 5,
+            "Operators": ["-", "+"],
+            "NoQuestions": 10,
             "NoNumbers": 2,
             "NoBlanks": 1
         },
         {
             "LevelNo": 5,
-            "Difficulty": "Easy",
+            "Difficulty": "Medium",
             "Numbers": [1,2,3,4,5,6,7,8,9,10],
-            "Operators": ["-"],
+            "Operators": ["*"],
             "NoQuestions": 5,
             "NoNumbers": 2,
             "NoBlanks": 1
         },
         {
             "LevelNo": 6,
-            "Difficulty": "Easy",
-            "Numbers": [1,2,3,4,5,6,7,8,9,10],
-            "Operators": ["-"],
+            "Difficulty": "Medium",
+            "Numbers": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+            "Operators": ["*"],
             "NoQuestions": 5,
             "NoNumbers": 2,
             "NoBlanks": 1
         },
         {
             "LevelNo": 7,
-            "Difficulty": "Easy",
+            "Difficulty": "Hard",
             "Numbers": [1,2,3,4,5,6,7,8,9,10],
-            "Operators": ["-"],
+            "Operators": ["*"],
             "NoQuestions": 5,
             "NoNumbers": 2,
             "NoBlanks": 1
+        },
+        {
+            "LevelNo": 8,
+            "Difficulty": "Hard",
+            "Numbers": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            "Operators": ["+","-","*","/"],
+            "NoQuestions": 5,
+            "NoNumbers": 2,
+            "NoBlanks": 2
         }
     ]
 }
