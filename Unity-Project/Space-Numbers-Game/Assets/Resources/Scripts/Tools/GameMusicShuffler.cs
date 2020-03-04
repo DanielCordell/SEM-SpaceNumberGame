@@ -17,6 +17,7 @@ public class GameMusicShuffler : MonoBehaviour
         currentAudioIndex = Random.Range(0, 2);
         Play();
     }
+
     void Update()
     {
         if (!audioSource.isPlaying)
