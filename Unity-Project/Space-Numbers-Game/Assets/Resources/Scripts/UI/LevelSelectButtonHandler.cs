@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelSelectButtonHandler : MonoBehaviour
 {
     int levelNumber;
     Difficulty levelDifficulty;
-    NumberRange numberRange;
+    List<int> numberRange;
     List<Operator> operators;
 
-    public LevelInfo LevelInfo;
+    LevelInfo levelInfo;
 
     // Start is called before the first frame update
     void Start()
     {
-        levelNumber = 1;
-        levelDifficulty = Difficulty.Easy;
-        numberRange = new NumberRange{ RangeFloor = 1, RangeCeiling = 10};
-        operators = new List<Operator>{ Operator.Add };
+        levelInfo = gameObject.transform.Find("/LevelSelectCanvas/InfoWindow").GetComponentInChildren<LevelInfo>();
+        // levelNumber = 1;
+        // levelDifficulty = Difficulty.Easy;
+        // numberRange = new List<int>{1,2,3,4,5};
+        // operators = new List<Operator>{ Operator.Add };
     }
 
     // Update is called once per frame
@@ -27,9 +30,20 @@ public class LevelSelectButtonHandler : MonoBehaviour
         
     }
 
+    public void SetUpButton(int level, Difficulty difficulty, List<int> range, List<Operator> ops) {
+        levelNumber = level;
+        levelDifficulty = difficulty;
+        numberRange = range;
+        operators = ops;
+
+        gameObject.GetComponentInChildren<Text>().text = level.ToString();
+    }
+
     public void SetLevelInfo() {
         //Update level info pane with info
-        LevelInfo.UpdateInfo(levelNumber, levelDifficulty, numberRange, operators);
+
+        var range = new NumberRange { RangeFloor = numberRange.Min(), RangeCeiling = numberRange.Max()};
+        levelInfo.UpdateInfo(levelNumber, levelDifficulty, range, operators);
     }
 }
 
