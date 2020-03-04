@@ -11,9 +11,9 @@ public class Question : MonoBehaviour
     public List<GameObject> Items;
     public int Answer;
     public string QuestionString;
-    public GameObject blankPrefab;
-    public GameObject numberPrefab;
-    public GameObject symbolPrefab;
+    public GameObject PrefabBlank;
+    public GameObject PrefabNumber;
+    public GameObject PrefabSymbol;
 
     public float gapBetweenItems;
 
@@ -45,17 +45,17 @@ public class Question : MonoBehaviour
 
             if (Regex.IsMatch(value ,"[-+*/=]"))
             {
-                obj = Instantiate(symbolPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                obj = Instantiate(PrefabSymbol, new Vector3(0, 0, 0), Quaternion.identity);
                 Operator op = value.ToString().ToOperator();
                 obj.GetComponent<Symbol>().SetValue(op);
             } 
             else if (!visible[index/2])
             {
-                obj = Instantiate(blankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                obj = Instantiate(PrefabBlank, new Vector3(0, 0, 0), Quaternion.identity);
             }
             else
             {
-                obj = Instantiate(numberPrefab);
+                obj = Instantiate(PrefabNumber);
                 obj.GetComponent<Number>().SetValue(int.Parse(value));
             }
             obj.transform.SetParent(gameObject.transform, false);

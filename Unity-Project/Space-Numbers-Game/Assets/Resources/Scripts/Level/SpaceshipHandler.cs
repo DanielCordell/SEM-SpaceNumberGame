@@ -12,12 +12,12 @@ public class SpaceshipHandler : MonoBehaviour
     bool fixedMovementFinished;
 
     [Range(1, 5)]
-    public float timeForMove;
+    public float TimeForMove;
     float timeMoved;
 
     // Scales size of random position in unit circle for larger movement
     [Range(0, 2)]
-    public float randomPositionMovementMultiplier;
+    public float RandomPositionMovementMultiplier;
 
     Vector3 velocityForFixedMovement = Vector3.zero;
 
@@ -57,8 +57,8 @@ public class SpaceshipHandler : MonoBehaviour
         else
         {
             timeMoved += Time.deltaTime;
-            bool hasFinishedMove = timeMoved >= timeForMove;
-            transform.position = Vector3.Lerp(lerpStartPosition, moveToPosition, hasFinishedMove ? 1 : timeMoved / timeForMove);
+            bool hasFinishedMove = timeMoved >= TimeForMove;
+            transform.position = Vector3.Lerp(lerpStartPosition, moveToPosition, hasFinishedMove ? 1 : timeMoved / TimeForMove);
             if (hasFinishedMove)
             {
                 timeMoved = 0;
@@ -70,7 +70,7 @@ public class SpaceshipHandler : MonoBehaviour
 
     public Vector3 GetNewTargetPosition()
     {
-        return startPosition + (Vector3)(Random.insideUnitCircle.normalized * randomPositionMovementMultiplier);
+        return startPosition + (Vector3)(Random.insideUnitCircle.normalized * RandomPositionMovementMultiplier);
     }
 
     public void SetTargetObject(GameObject obj)

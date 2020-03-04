@@ -926,6 +926,16 @@ PrefabInstance:
       propertyPath: randomPositionMovementMultiplier
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 7995460930145433217, guid: 4b2e8aeae359548c2ad064307a8fbce5,
+        type: 3}
+      propertyPath: TimeForMove
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7995460930145433217, guid: 4b2e8aeae359548c2ad064307a8fbce5,
+        type: 3}
+      propertyPath: RandomPositionMovementMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b2e8aeae359548c2ad064307a8fbce5, type: 3}
 --- !u!1 &985176559
@@ -2482,11 +2492,11 @@ MonoBehaviour:
   Items: []
   Answer: 0
   QuestionString: 
-  blankPrefab: {fileID: 7678133439809082547, guid: 4579570c4189a412bbe8b81dab0de013,
+  PrefabBlank: {fileID: 7678133439809082547, guid: 4579570c4189a412bbe8b81dab0de013,
     type: 3}
-  numberPrefab: {fileID: 6007707735601872013, guid: 6b60dda83f42b4f48a02e075db1c8ff3,
+  PrefabNumber: {fileID: 6007707735601872013, guid: 6b60dda83f42b4f48a02e075db1c8ff3,
     type: 3}
-  symbolPrefab: {fileID: 104491131009576776, guid: 9101529721a9a441cbe3e99cd9b072c4,
+  PrefabSymbol: {fileID: 104491131009576776, guid: 9101529721a9a441cbe3e99cd9b072c4,
     type: 3}
   gapBetweenItems: 40
 --- !u!82 &2003115895
