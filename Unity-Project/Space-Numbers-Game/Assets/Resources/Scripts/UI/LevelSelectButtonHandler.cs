@@ -13,11 +13,13 @@ public class LevelSelectButtonHandler : MonoBehaviour
     List<Operator> operators;
 
     LevelInfo levelInfo;
+    PlayButtonHandler playButtonHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         levelInfo = gameObject.transform.Find("/LevelSelectCanvas/InfoWindow").GetComponentInChildren<LevelInfo>();
+        playButtonHandler = gameObject.transform.Find("/LevelSelectCanvas/InfoWindow/PlayLevelButton").GetComponentInChildren<PlayButtonHandler>();
         // levelNumber = 1;
         // levelDifficulty = Difficulty.Easy;
         // numberRange = new List<int>{1,2,3,4,5};
@@ -40,10 +42,10 @@ public class LevelSelectButtonHandler : MonoBehaviour
     }
 
     public void SetLevelInfo() {
-        //Update level info pane with info
-
         var range = new NumberRange { RangeFloor = numberRange.Min(), RangeCeiling = numberRange.Max()};
         levelInfo.UpdateInfo(levelNumber, levelDifficulty, range, operators);
+
+        playButtonHandler.SetSelectedLevel(levelNumber, levelDifficulty, numberRange, operators);
     }
 }
 

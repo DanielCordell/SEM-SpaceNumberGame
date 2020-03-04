@@ -40,6 +40,7 @@ public class PlayButtonHandler : MonoBehaviour
         if (buttonEnabled == false)
             return;
     
+        Debug.Log("Now playing: Level " + levelNo.ToString());
         //Pass all stuff to the level and do that stuff here
     }
 }

@@ -11,7 +11,8 @@ public class LevelSelect : MonoBehaviour
     public int GapBetweenItems;
     public int Rows;
     public int Columns;
-
+    
+    public PlayButtonHandler playButton;
     List<GameObject> buttons;
 
     // Start is called before the first frame update
