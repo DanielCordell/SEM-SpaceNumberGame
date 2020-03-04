@@ -1,13 +1,12 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShieldStateHandler : MonoBehaviour
 {
-    public GameObject shields;
+    public GameObject Shields;
     // healthBars is regarded as part of Shield
-    public GameObject healthBars;
+    public GameObject HealthBars;
     // Record how many wrong times currently
-    public int countWrong;
+    public int CountWrong;
     // Shiled broke Sound effect
     //public AudioSource shieldBreak;
 
@@ -26,14 +25,14 @@ public class ShieldStateHandler : MonoBehaviour
     public void InitialiseShieldState()
     {
         // Find game objects
-        healthBars = GameObject.FindGameObjectWithTag("HealthBars");
-        shields = GameObject.FindGameObjectWithTag("Shields");
+        HealthBars = GameObject.FindGameObjectWithTag("HealthBars");
+        Shields = GameObject.FindGameObjectWithTag("Shields");
         //shieldBreak = shields.transform.GetComponent<AudioSource>();
         // Find the current sprite
-        healthBarSR = healthBars.transform.GetComponent<SpriteRenderer>();
-        shieldSR = shields.transform.GetComponent<SpriteRenderer>();
+        healthBarSR = HealthBars.transform.GetComponent<SpriteRenderer>();
+        shieldSR = Shields.transform.GetComponent<SpriteRenderer>();
         // Reset countWrong
-        countWrong = 0;
+        CountWrong = 0;
         // Set initial sprite
         healthBarSR.sprite = Resources.Load("Art/Textures/healthBarFull", typeof(Sprite)) as Sprite;
         shieldSR.sprite = Resources.Load("Art/Textures/shieldsFull", typeof(Sprite)) as Sprite;
@@ -41,8 +40,8 @@ public class ShieldStateHandler : MonoBehaviour
 
     public int AddCountWrong()
     {
-        countWrong += 1;
-        return countWrong;
+        CountWrong += 1;
+        return CountWrong;
     }
 
     public void UpdateShieldState(int currentWrongTimes)

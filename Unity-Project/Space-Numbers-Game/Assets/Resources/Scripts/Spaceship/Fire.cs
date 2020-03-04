@@ -20,7 +20,7 @@ public class Fire : MonoBehaviour
     private bool hasFired;
     private bool areGapsFilled;
 
-    public GameObject laserPrefab;
+    public GameObject PrefabLaser;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +62,7 @@ public class Fire : MonoBehaviour
     private void fireBtnOnClick()
     {
         Debug.Log("Firing!");
-        if (shieldStateHandler.countWrong <= 3)
+        if (shieldStateHandler.CountWrong <= 3)
             hasFired = false;
         if (hasFired || !areGapsFilled) return;
         if (levelHandler.ValidateAnswer())
@@ -76,7 +76,7 @@ public class Fire : MonoBehaviour
             audioSource.clip = soundWrongAnswer;
             hintText.text = "Wrong  Answer!";
             shieldStateHandler.UpdateShieldState(shieldStateHandler.AddCountWrong());
-            Debug.Log("Cunrrent wrong times: " + shieldStateHandler.countWrong);
+            Debug.Log("Cunrrent wrong times: " + shieldStateHandler.CountWrong);
         }
         hasFired = true;
         audioSource.Play();
@@ -88,8 +88,8 @@ public class Fire : MonoBehaviour
         Vector3 spawnPosition = transform.Find("LaserStart").position;
         List<GameObject> selectedAsteroids = GameObject.FindGameObjectsWithTag("Asteroid").Where(it => it.GetComponent<Asteroid>().Selected).ToList();
         selectedAsteroids.ForEach(it => {
-            GameObject laser = Instantiate(laserPrefab, spawnPosition, Quaternion.identity);
-            laser.GetComponentInChildren<LaserMove>().asteroidTarget = it;
+            GameObject laser = Instantiate(PrefabLaser, spawnPosition, Quaternion.identity);
+            laser.GetComponentInChildren<LaserMove>().AsteroidTarget = it;
             PathCreator pathCreator = laser.GetComponent<PathCreator>();
             Vector3 point = new Vector3(it.transform.position.x - spawnPosition.x, it.transform.position.y - spawnPosition.y, 0);
             pathCreator.bezierPath = new BezierPath(new Vector3[3] { pathCreator.bezierPath.GetPoint(0), pathCreator.bezierPath.GetPoint(1), point }, false, PathSpace.xy);

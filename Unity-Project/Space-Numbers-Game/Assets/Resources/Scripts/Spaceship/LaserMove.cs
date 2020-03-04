@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class LaserMove : MonoBehaviour
 {
-    public float speed;
+    public float LaserSpeed;
 
     PathCreator pathCreator;
     float dstTravelled;
 
-    public GameObject asteroidTarget;
+    public GameObject AsteroidTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class LaserMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dstTravelled += speed * Time.deltaTime;
+        dstTravelled += LaserSpeed * Time.deltaTime;
         transform.position = pathCreator.path.GetPointAtDistance(dstTravelled);
         Vector3 rotation = (pathCreator.path.GetRotationAtDistance(dstTravelled) * Quaternion.Euler(90, 0, 0)).eulerAngles;
         transform.rotation = Quaternion.Euler(new Vector3(0, -180, -rotation.x));
@@ -32,7 +32,7 @@ public class LaserMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Test");
-        if (collision.gameObject == asteroidTarget)
+        if (collision.gameObject == AsteroidTarget)
         {
             collision.gameObject.GetComponent<Asteroid>().Explode();
             Destroy(transform.parent.gameObject);
