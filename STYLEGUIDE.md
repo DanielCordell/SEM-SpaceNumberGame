@@ -97,7 +97,8 @@ Scripts
 Don't try to shove all behaviour into one script! Logical separation of behaviour, _single responsibility_.
 
 ## Naming
-- Variables - `camelCase`
+- Public Variables - `PascalCase`
+- Other Variables - `camelCase`
 - Classes / Data Types - `PascalCase`
     - File Names should match Class Names.
 - Functions - `PasclCase`
