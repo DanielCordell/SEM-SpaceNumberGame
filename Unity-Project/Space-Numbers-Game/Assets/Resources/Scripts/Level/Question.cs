@@ -156,19 +156,36 @@ public class Question : MonoBehaviour
     public int? GetAnswer() {
         var item = Items.Last();
 
+        int? value = null;
+
         var blank = item.gameObject.GetComponentInChildren<Blank>();
         if (blank != null)
         {
-            return blank.GetValue();
+            value = blank.GetValue();
         }
 
         var number = item.gameObject.GetComponentInChildren<Number>();
         if (number != null)
         {
-            return number.GetValue();
+            value = number.GetValue();
         }
-        
-        Debug.Log("This shouldn't happen, last item is not a blank or a number!");
-        return null;
+
+        // If we haven't got a value at this point, something broke!
+        if (value == null)
+        {
+            Debug.Log("This shouldn't happen, last item is not a blank or a number!");
+            return null;
+        }
+
+        // Could potentially happen somehow
+        if (Items.Count == 1) return value;
+
+        // Flip the sign if the previous value is -1
+        var penultimateItem = Items[Items.Count - 2].gameObject.GetComponentInChildren<Symbol>();
+        if (penultimateItem != null && penultimateItem.GetValue() == Operator.Subtract)
+        {
+            value = -value;
+        }
+        return value;
     }
 }
