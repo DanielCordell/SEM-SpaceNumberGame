@@ -55,22 +55,29 @@ Use a leading underscore to make object instances that are not specific to the c
 e.g.
 ```
 Assets
-+---Art
-|   +---Materials
-|   +---Models      # FBX and BLEND files
-|   +---Textures    # PNG files
-+---Audio
-|   +---Music
-|   \---Sound       # Samples and sound effects
-+---Code
-|   +---Scripts     # C# scripts
-|   \---Shaders     # Shader files and shader graphs
-+---Docs            # Wiki, concept art, marketing material
-+---Level           # Anything related to game design in Unity
-|   +---Prefabs
-|   +---Scenes
-|   \---UI
-\---Resources       # Configuration files, localization text and other user files.
++---Fonts
++---Plugins
++---Resources
+|   +---Art
+|       +---Animations
+|       +---Mateirals
+|       +---Textures
+|   +---Audio
+|       +---Music
+|       +---Sounds
+|   +---Level
+|       +---Prefabs
+|       +---Scenes
+|   +---Scripts
+|       +---Level
+|       +---Shield
+|       +---Spaceship
+|       +---Timer
+|       +---UI
+|       +---Visual
++---Tests
+|   +---EditMode
+|   +---PlayMode
 ```
 ## Scripts
 
