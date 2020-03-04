@@ -83,20 +83,16 @@ Assets
 
 Use namespaces that match your directory structure.
 
-A Framework directory is great for having code that can be reused across projects.
-
-The Scripts folder varies depending on the project, however, `Environment`, `Framework`, `Tools` and `UI` should be consistent  across projects. 
-
 e.g.
 
 ```
 Scripts
-+---Environment
-+---Framework
-+---NPC
-+---Player
-+---Tools
-\---UI
++---Level
++---Shield
++---Spaceship
++---Timer
++---UI
++---Visuals
 ```
 
 # Code
