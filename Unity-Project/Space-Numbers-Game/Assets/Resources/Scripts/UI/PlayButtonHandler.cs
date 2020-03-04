@@ -1,0 +1,45 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayButtonHandler : MonoBehaviour
+{
+    int levelNo;
+    Difficulty difficulty;
+    List<int>  numbers;
+    List<Operator> operators;
+    int noQuestions;
+    int noNumbers;
+    int noBlanks;
+    bool buttonEnabled;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        buttonEnabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void SetSelectedLevel(int level, Difficulty levelDifficulty, List<int> levelNumbers, List<Operator> levelOperators)
+    {
+        levelNo = level;
+        difficulty = levelDifficulty;
+        numbers = levelNumbers;
+        operators = levelOperators;
+
+        buttonEnabled = true;
+    }
+
+    public void PlayLevel()
+    {
+        if (buttonEnabled == false)
+            return;
+    
+        //Pass all stuff to the level and do that stuff here
+    }
+}
