@@ -81,8 +81,6 @@ Assets
 ```
 ## Scripts
 
-Use namespaces that match your directory structure.
-
 e.g.
 
 ```
@@ -92,7 +90,7 @@ Scripts
 +---Spaceship
 +---Timer
 +---UI
-+---Visuals
++---Tools
 ```
 
 # Code
