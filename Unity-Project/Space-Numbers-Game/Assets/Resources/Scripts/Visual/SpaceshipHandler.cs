@@ -11,10 +11,13 @@ public class SpaceshipHandler : MonoBehaviour
     bool overrideWithFixedMovement;
     bool fixedMovementFinished;
 
+    [Range(1, 5)]
     public float timeForMove;
     float timeMoved;
 
-    public float movementMultiplier;
+    // Scales size of random position in unit circle for larger movement
+    [Range(0, 2)]
+    public float randomPositionMovementMultiplier;
 
     Vector3 velocityForFixedMovement = Vector3.zero;
 
@@ -67,7 +70,7 @@ public class SpaceshipHandler : MonoBehaviour
 
     public Vector3 GetNewTargetPosition()
     {
-        return startPosition + (Vector3)(Random.insideUnitCircle.normalized * movementMultiplier);
+        return startPosition + (Vector3)(Random.insideUnitCircle.normalized * randomPositionMovementMultiplier);
     }
 
     public void SetTargetObject(GameObject obj)

@@ -31169,7 +31169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeForMove: 2
-  movementMultiplier: 0.3
+  randomPositionMovementMultiplier: 0.4
 --- !u!212 &3525833782358013690
 SpriteRenderer:
   m_ObjectHideFlags: 0
