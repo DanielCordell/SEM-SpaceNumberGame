@@ -18,14 +18,14 @@ public class LevelSelect : MonoBehaviour
     void Start()
     {
 
-        loadLevels();
+        LoadLevels();
 
         int c = 0;
         int r = 0;
         foreach (var level in levels.Levels)
         {
-            var button = createLevelButton(level);
-            positionButton(button, c, r);
+            var button = CreateLevelButton(level);
+            PositionButton(button, c, r);
 
             c++;
             if (c >= Columns)
@@ -42,7 +42,7 @@ public class LevelSelect : MonoBehaviour
         
     }
 
-    void loadLevels()
+    void LoadLevels()
     {
         var jsonFile = Resources.Load<TextAsset>("Config/Levels");
         Debug.Log(jsonFile.ToString());
@@ -50,14 +50,14 @@ public class LevelSelect : MonoBehaviour
         Debug.Log(levels.Levels.Count.ToString());
     }
 
-    void positionButton(GameObject button, int column, int row)
+    void PositionButton(GameObject button, int column, int row)
     {   
         float horizontalOffset = -120 + (GapBetweenItems * column);
         float verticalOffset = 100 - (GapBetweenItems * row);
         button.transform.localPosition = new Vector3(horizontalOffset, verticalOffset, -10);
     }
 
-    GameObject createLevelButton(LevelDTO level)
+    GameObject CreateLevelButton(LevelDTO level)
     {
         var button = Instantiate(Button);
         button.transform.SetParent(gameObject.transform, false);
