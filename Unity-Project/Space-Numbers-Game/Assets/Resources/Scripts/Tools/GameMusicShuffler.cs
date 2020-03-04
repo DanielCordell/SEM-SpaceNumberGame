@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameMusicShuffler : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     AudioSource audioSource;
 
     AudioClip[] audioClips = new AudioClip[2];
@@ -19,8 +17,6 @@ public class GameMusicShuffler : MonoBehaviour
         currentAudioIndex = Random.Range(0, 2);
         Play();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (!audioSource.isPlaying)
