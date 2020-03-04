@@ -38,30 +38,28 @@ public class ShieldStateHandler : MonoBehaviour
         shieldSR.sprite = Resources.Load("Art/Textures/shieldsFull", typeof(Sprite)) as Sprite;
     }
 
-    public int AddCountWrong()
+    public void AddCountWrong()
     {
-        CountWrong += 1;
-        return CountWrong;
+        CountWrong++;
+        UpdateShieldState(CountWrong);
     }
 
-    public void UpdateShieldState(int currentWrongTimes)
-    {
+    void UpdateShieldState(int currentWrongTimes) {
+        Debug.Log("Current Wrong Times: " + currentWrongTimes);
         // according to the currentWrongTimes, change the current sprites to show
         switch (currentWrongTimes)
         {
             case 0:
                 break;
             case 1:
-                healthBarSR.sprite = Resources.Load("Art/Textures/healthBar1", typeof(Sprite)) as Sprite;
-                shieldSR.sprite = Resources.Load("Art/Textures/shields1", typeof(Sprite)) as Sprite;
-                break;
             case 2:
-                healthBarSR.sprite = Resources.Load("Art/Textures/healthBar2", typeof(Sprite)) as Sprite;
-                shieldSR.sprite = Resources.Load("Art/Textures/shields2", typeof(Sprite)) as Sprite;
-                break;
             case 3:
-                healthBarSR.sprite = Resources.Load("Art/Textures/healthBar3", typeof(Sprite)) as Sprite;
-                shieldSR.sprite = Resources.Load("Art/Textures/shields3", typeof(Sprite)) as Sprite;
+                shieldSR.sprite = Resources.Load("Art/Textures/shields" + currentWrongTimes, typeof(Sprite)) as Sprite;
+                healthBarSR.sprite = Resources.Load("Art/Textures/healthBar" + currentWrongTimes, typeof(Sprite)) as Sprite;
+                if (currentWrongTimes == 3)
+                    healthBarSR.sprite = null;
+                else
+                    healthBarSR.sprite = Resources.Load("Art/Textures/healthBar" + currentWrongTimes, typeof(Sprite)) as Sprite;
                 break;
             default:
                 //TODO Should jump to game over scene.
@@ -70,6 +68,17 @@ public class ShieldStateHandler : MonoBehaviour
         }
     }
 
+    public string GetHealthTextureName()
+    {
+        if (healthBarSR.sprite == null) return null;
+        return healthBarSR.sprite.texture.name;
+    }
+
+    public string GetShieldTextureName()
+    {
+        if (shieldSR.sprite == null) return null;
+        return shieldSR.sprite.texture.name;
+    }
 
     // Update is called once per frame
     void Update()

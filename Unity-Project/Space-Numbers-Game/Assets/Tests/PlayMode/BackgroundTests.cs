@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Tests
 {
-    public class Background
+    public class BackgroundTests
     {
         GameObject starFieldPrefab;
         [OneTimeSetUp]

@@ -36,7 +36,7 @@ public class Fire : MonoBehaviour
 
         hintText = GetComponentInChildren<Text>();
 
-        shieldStateHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<ShieldStateHandler>();
+        shieldStateHandler = GameObject.FindGameObjectWithTag("Shields").GetComponent<ShieldStateHandler>();
         Reset();
     }
 
@@ -75,8 +75,8 @@ public class Fire : MonoBehaviour
         {
             audioSource.clip = soundWrongAnswer;
             hintText.text = "Wrong  Answer!";
-            shieldStateHandler.UpdateShieldState(shieldStateHandler.AddCountWrong());
-            Debug.Log("Cunrrent wrong times: " + shieldStateHandler.CountWrong);
+            shieldStateHandler.AddCountWrong();
+            Debug.Log("Current wrong times: " + shieldStateHandler.CountWrong);
         }
         hasFired = true;
         audioSource.Play();
