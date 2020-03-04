@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelSelect : MonoBehaviour
@@ -62,7 +63,11 @@ public class LevelSelect : MonoBehaviour
         button.transform.SetParent(gameObject.transform, false);
 
         var handler = button.gameObject.GetComponentInChildren<LevelSelectButtonHandler>();
-        handler.SetUpButton(level.LevelNo, level.Difficulty, level.Numbers, level.Operators);
+
+        Difficulty difficulty = level.Difficulty.ToDifficulty();
+        List<Operator> operators = level.Operators.Select(o => o.ToOperator()).ToList();
+
+        handler.SetUpButton(level.LevelNo, difficulty, level.Numbers, operators);
 
         return button;
     }
@@ -72,9 +77,9 @@ public class LevelSelect : MonoBehaviour
 public class LevelDTO
 {
     public int LevelNo;
-    public Difficulty Difficulty;
+    public string Difficulty;
     public List<int> Numbers;
-    public List<Operator> Operators;
+    public List<string> Operators;
     public int NoQuestions;
     public int NoNumbers;
     public int NoBlanks;

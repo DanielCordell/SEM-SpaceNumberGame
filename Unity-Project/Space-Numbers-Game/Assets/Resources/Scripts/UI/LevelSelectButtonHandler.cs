@@ -74,4 +74,16 @@ public static class DifficultyExtensions
             default: throw new ArgumentException("Invalid difficulty: " + difficulty.ToString());
         }
     }
+
+    public static Difficulty ToDifficulty(this string input)
+    {
+        switch (input)
+        {
+            case "Easy": return Difficulty.Easy;
+            case "Medium": return Difficulty.Medium;
+            case "Hard": return Difficulty.Hard;
+            case "Extreme": return Difficulty.Extreme;
+            default: throw new ArgumentException("Invalid difficulty: " + input);
+        }
+    }
 }
