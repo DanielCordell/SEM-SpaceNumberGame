@@ -29,7 +29,7 @@ public class ShieldStateHandler : MonoBehaviour
         HealthBars = GameObject.FindGameObjectWithTag("HealthBars");
         Shields = GameObject.FindGameObjectWithTag("Shields");
         //shieldBreak = shields.transform.GetComponent<AudioSource>();
-        sceneHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<SceneHandler>();
+        sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
         // Find the current sprite
         healthBarSR = HealthBars.transform.GetComponent<SpriteRenderer>();
         shieldSR = Shields.transform.GetComponent<SpriteRenderer>();

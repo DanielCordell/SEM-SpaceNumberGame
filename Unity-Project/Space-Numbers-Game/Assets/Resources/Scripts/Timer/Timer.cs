@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
         TimerStart = 60f;
         timerBox = GetComponent<Image>();
         CountdownSound = timerBox.GetComponent<AudioSource>();
-        sceneHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<SceneHandler>();
+        sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
     }
    
 

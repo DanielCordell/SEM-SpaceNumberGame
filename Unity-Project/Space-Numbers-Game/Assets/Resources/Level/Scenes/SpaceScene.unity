@@ -695,11 +695,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717729116}
-  - component: {fileID: 717729117}
   - component: {fileID: 717729118}
   m_Layer: 0
-  m_Name: ShieldStateHandler
-  m_TagString: ShieldStateHandler
+  m_Name: SpaceSceneHandler
+  m_TagString: SceneHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -718,21 +717,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &717729117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717729115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bffd51ea63b84b4381ecb9365aab357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Shields: {fileID: 0}
-  HealthBars: {fileID: 0}
-  CountWrong: 0
 --- !u!114 &717729118
 MonoBehaviour:
   m_ObjectHideFlags: 0

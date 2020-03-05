@@ -11,7 +11,7 @@ public class GameOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneHandler = GameObject.FindGameObjectWithTag("GameOverSceneHandler").GetComponent<SceneHandler>();
+        sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
         playAgainBtn = GameObject.FindGameObjectWithTag("PlayAgain").GetComponent<Button>();
         menuBtn = GameObject.FindGameObjectWithTag("Menu").GetComponent<Button>();
         quitBtn = GameObject.FindGameObjectWithTag("Quit").GetComponent<Button>();

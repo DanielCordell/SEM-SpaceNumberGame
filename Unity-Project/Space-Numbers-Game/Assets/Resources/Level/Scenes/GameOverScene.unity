@@ -10272,7 +10272,7 @@ GameObject:
   - component: {fileID: 1348454824}
   m_Layer: 0
   m_Name: GameSceneHandler
-  m_TagString: GameOverSceneHandler
+  m_TagString: SceneHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
