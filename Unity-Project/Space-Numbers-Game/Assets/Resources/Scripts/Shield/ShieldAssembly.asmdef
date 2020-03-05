@@ -1,3 +1,15 @@
-﻿{
-	"name": "ShieldAssembly"
+{
+    "name": "ShieldAssembly",
+    "references": [
+        "GUID:390cd3981e8ad8d4db0bc61e6357508a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

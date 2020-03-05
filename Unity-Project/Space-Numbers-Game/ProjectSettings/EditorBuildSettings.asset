@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Level/Scenes/SpaceScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Resources/Level/Scenes/GameOverScene.unity
+    guid: fb7efba3c6cb94b4ca19715bb9641fab
   m_configObjects: {}

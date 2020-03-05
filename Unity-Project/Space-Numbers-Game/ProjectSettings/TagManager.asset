@@ -10,6 +10,11 @@ TagManager:
   - Shields
   - HealthBars
   - SpaceshipSpawnPos
+  - ButtonHandler
+  - Quit
+  - PlayAgain
+  - Menu
+  - SceneHandler
   layers:
   - Default
   - TransparentFX
