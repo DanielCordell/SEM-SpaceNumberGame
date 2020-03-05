@@ -22,11 +22,13 @@ public class Fire : MonoBehaviour
 
     public GameObject PrefabLaser;
 
+    private DataHandler dataHandler;
+
     // Start is called before the first frame update
     void Start()
     {
         levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-
+        dataHandler = GameObject.FindGameObjectWithTag("DataHandler").GetComponent<DataHandler>();
         soundWrongAnswer = Resources.Load<AudioClip>("audio/sound/wrong_answer");
         soundShoot = Resources.Load<AudioClip>("audio/sound/shoot");
         audioSource = GetComponent<AudioSource>();
@@ -69,6 +71,7 @@ public class Fire : MonoBehaviour
         {
             audioSource.clip = soundShoot;
             hintText.text = "Good  Job!";
+            dataHandler.AddRightNum();
             FireLasers();
         }
         else
