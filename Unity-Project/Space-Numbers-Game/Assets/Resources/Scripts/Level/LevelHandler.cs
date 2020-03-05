@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using NCalc;
+using UnityEngine.SceneManagement;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class LevelHandler : MonoBehaviour
     public GameObject AsteroidPrefab;
     public Question QuestionText;
     public int NumberOfExtraAsteroids;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -144,5 +147,9 @@ public class LevelHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
     }
 }
