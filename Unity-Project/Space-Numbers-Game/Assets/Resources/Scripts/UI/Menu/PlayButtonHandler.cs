@@ -47,6 +47,13 @@ public class PlayButtonHandler : MonoBehaviour
         Debug.Log("Now playing: Level " + levelNo.ToString());
 
         //Pass all stuff to the level and do that stuff here
+        CurrentLevel.LevelNo = levelNo;
+        CurrentLevel.Difficulty = difficulty;
+        CurrentLevel.Numbers = numbers;
+        CurrentLevel.Operators = operators;
+        CurrentLevel.NoNumbers = noNumbers;
+        CurrentLevel.NoQuestions = noQuestions;
+        CurrentLevel.NoBlanks = noBlanks;
         SceneManager.LoadScene("SpaceScene");
     }
 }
