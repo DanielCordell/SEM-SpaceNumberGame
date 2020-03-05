@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     // how many time left
-    public float TimerCurrent;
-    public float TimerStart;
-    public float TimerPercent;
+    float TimerCurrent;
+    float TimerStart;
+    float TimerPercent;
     public AudioSource CountdownSound;
     private bool hasPlayedSound;
     private Image timerBox;
@@ -17,18 +17,19 @@ public class Timer : MonoBehaviour
     void Start()
     {
         InitialiseTimer();
-        TimerCurrent = TimerStart;
     }
 
 
-    void InitialiseTimer()
+    public void InitialiseTimer()
     {
         TimerStart = 60f;
         timerBox = GetComponent<Image>();
         CountdownSound = timerBox.GetComponent<AudioSource>();
         sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
+        timerBox.fillAmount = 1;
+        TimerCurrent = TimerStart;
     }
-   
+
 
     void Update()
     {

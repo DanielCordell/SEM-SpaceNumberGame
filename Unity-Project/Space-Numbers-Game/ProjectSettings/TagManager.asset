@@ -18,6 +18,8 @@ TagManager:
   - DataHandler
   - Score
   - SceneHandler
+  - Spaceship
+  - Timer
   layers:
   - Default
   - TransparentFX

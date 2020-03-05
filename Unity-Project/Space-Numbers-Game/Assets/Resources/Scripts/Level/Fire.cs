@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Linq;
 using PathCreation;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Fire : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class Fire : MonoBehaviour
             hintText.text = "Good  Job!";
             dataHandler.AddRightNum();
             FireLasers();
+            StartCoroutine(TriggerUpdateAfterDelay());
         }
         else
         {
@@ -97,5 +99,11 @@ public class Fire : MonoBehaviour
             Vector3 point = new Vector3(it.transform.position.x - spawnPosition.x, it.transform.position.y - spawnPosition.y, 0);
             pathCreator.bezierPath = new BezierPath(new Vector3[3] { pathCreator.bezierPath.GetPoint(0), pathCreator.bezierPath.GetPoint(1), point }, false, PathSpace.xy);
         });
+    }
+
+    private IEnumerator TriggerUpdateAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        levelHandler.SetLevelShouldUpdate();
     }
 }

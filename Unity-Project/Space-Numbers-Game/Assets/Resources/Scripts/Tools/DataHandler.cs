@@ -1,20 +1,19 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DataHandler : MonoBehaviour
 {
-    // Count how many question does the Player get right in current level
-    public int CurrentLevelRightNum;
     // Count how many question does the Player get right in total
-    public int GloablRightNum;
+    public int ScoreValue;
 
     public int CurrentLevelQuestionNum;
 
-    public Text score;
+    public Text Score;
 
-    
+    public int Level;
 
 
     // Start is called before the first frame update
@@ -25,35 +24,22 @@ public class DataHandler : MonoBehaviour
 
     public void InitialiseData()
     {
-        score = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        CurrentLevelRightNum = 0;
-        GloablRightNum = 0;
-    }
 
-    public void ResetCurrentLevelRightNum()
-    {
-        // When player jump into next level update data
-        GloablRightNum += CurrentLevelRightNum;
-        CurrentLevelRightNum = 0;
+        Score = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+        ScoreValue = 0;
+        UpdateScore();
     }
 
     public void AddRightNum()
     {
-        CurrentLevelRightNum++;
-        GloablRightNum++;
-        Debug.Log("Current Level Right Num: " + CurrentLevelRightNum);
+        ScoreValue++;
+        Debug.Log("Current Level Right Num: " + ScoreValue);
         UpdateScore();
     }
 
     public void UpdateScore()
     {
-        score.text = GloablRightNum.ToString();
-    }
-
-
-    public void UpdateCurrentLevel()
-    {
-        
+        Score.text = "Score: " + ScoreValue.ToString();
     }
 
     // Update is called once per frame

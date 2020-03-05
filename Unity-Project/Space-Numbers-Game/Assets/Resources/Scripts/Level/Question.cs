@@ -69,6 +69,7 @@ public class Question : MonoBehaviour
         int i = 0;
         foreach (Transform child in gameObject.transform)
         {
+            if (child.gameObject == null && !child.gameObject.activeInHierarchy) continue;
             if (child == gameObject.transform) continue;
             float horizontalOffset = -110 + (gapBetweenItems * i);
             child.localPosition = new Vector3(horizontalOffset, 0, -10);

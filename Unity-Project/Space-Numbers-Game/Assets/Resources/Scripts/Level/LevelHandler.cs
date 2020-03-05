@@ -7,19 +7,31 @@ using NCalc;
 public class LevelHandler : MonoBehaviour
 {
     Level currentLevel;
+    int countOnCurrentLevel;
+
     public const int MAX_LEVEL = 15;
 
     public GameObject AsteroidPrefab;
     public Question QuestionText;
     public int NumberOfExtraAsteroids;
 
+    Fire spaceship;
+    ShieldStateHandler shield;
+    Timer timer;
+
+    bool shouldUpdate;
+
     // Start is called before the first frame update
     void Start()
     {
         // Current demo code to generate a level
         currentLevel = GenerateLevel();
+        countOnCurrentLevel = 0;
         SetupLevel(ref currentLevel);
-        QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
+        spaceship = GameObject.FindGameObjectWithTag("Spaceship").GetComponent<Fire>();
+        shield = GameObject.FindGameObjectWithTag("Shields").GetComponent<ShieldStateHandler>();
+        timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+        shouldUpdate = false;
     }
 
     void SetupLevel(ref Level level)
@@ -67,6 +79,8 @@ public class LevelHandler : MonoBehaviour
             SetupAsteroid(number, rand, positionObjects[valuesOfGaps.Length + i]);
             prevRandomNumbers.Add(number);
         }
+
+        QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
     }
 
     void SetupAsteroid(int number, System.Random rand, GameObject positionObject)
@@ -169,9 +183,42 @@ public class LevelHandler : MonoBehaviour
         return new Level(CurrentLevel.LevelNo, numberRanges, operators, visible.ToList());
     }
 
+    public void UpdateCurrentLevel()
+    {
+        ResetScene();
+        countOnCurrentLevel++;
+        if (countOnCurrentLevel == 5)
+        {
+            countOnCurrentLevel = 0;
+            // Go to next level
+            return;
+        }
+        currentLevel = GenerateLevel();
+        SetupLevel(ref currentLevel);
+    }
 
-    // Update is called once per frame
+    private void ResetScene()
+    {
+        GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
+        foreach (GameObject asteroid in asteroids) Destroy(asteroid);
+
+        spaceship.Reset();
+        shield.InitialiseShieldState();
+        timer.InitialiseTimer();
+    }
+
+    public void SetLevelShouldUpdate()
+    {
+        shouldUpdate = true;
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("MathsAsset")) Destroy(obj);
+    }
+
     void Update()
     {
+        if (shouldUpdate)
+        {
+            shouldUpdate = false;
+            UpdateCurrentLevel();
+        }
     }
 }
