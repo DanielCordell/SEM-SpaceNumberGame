@@ -9,9 +9,9 @@ public class LevelHandler : MonoBehaviour
     Level currentLevel;
     public const int MAX_LEVEL = 15;
 
-    public GameObject asteroid;
-    public Question question;
-    public int extraAsteroids;
+    public GameObject AsteroidPrefab;
+    public Question QuestionText;
+    public int NumberOfExtraAsteroids;
 
     // Start is called before the first frame update
     void Start()
@@ -19,15 +19,15 @@ public class LevelHandler : MonoBehaviour
         // Current demo code to generate a level
         currentLevel = GenerateLevel(1);
         SetupLevel(ref currentLevel);
-        question.SetQuestion(currentLevel.statementString, GetVisible());
+        QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
     }
 
     void SetupLevel(ref Level level)
     {
         if (level == null) throw new ArgumentNullException("Level is Null!");
         int numberOfRealAsteroids = level.GetNumberOfGaps();
-        int numberOfAsteroids = numberOfRealAsteroids + extraAsteroids;
-        Debug.Log("Generating " + numberOfAsteroids + " asteroids.\nReal: " + numberOfRealAsteroids + " Fake: " + extraAsteroids);
+        int numberOfAsteroids = numberOfRealAsteroids + NumberOfExtraAsteroids;
+        Debug.Log("Generating " + numberOfAsteroids + " asteroids.\nReal: " + numberOfRealAsteroids + " Fake: " + NumberOfExtraAsteroids);
 
         GameObject[] positionObjects = GameObject.FindGameObjectsWithTag("AsteroidSpawnPos");
 
@@ -53,7 +53,7 @@ public class LevelHandler : MonoBehaviour
 
         List<int> prevRandomNumbers = new List<int>();
         // Then generate the extra asteroids with garbage!
-        for (int i = 0; i < extraAsteroids; i++)
+        for (int i = 0; i < NumberOfExtraAsteroids; i++)
         {
             int number;
 
@@ -71,13 +71,13 @@ public class LevelHandler : MonoBehaviour
 
     void SetupAsteroid(int number, System.Random rand, GameObject positionObject)
     {
-        GameObject a = Instantiate(asteroid, positionObject.GetComponent<Transform>().position, Quaternion.identity);
+        GameObject a = Instantiate(AsteroidPrefab, positionObject.GetComponent<Transform>().position, Quaternion.identity);
         a.transform.Rotate(0, 0, rand.Next(360));
         a.transform.Find("NoRotation/Canvas/Text").GetComponent<UnityEngine.UI.Text>().text = number.ToString();
 
     }
 
-    public int[] GetQuestionNumbers()
+    public int[] GetQuestionTextNumbers()
     {
         return currentLevel.questionNumbers;
     }
@@ -94,8 +94,8 @@ public class LevelHandler : MonoBehaviour
 
     public bool ValidateAnswer()
     {
-        string expression = question.GetExpression();
-        int? answer = question.GetAnswer();
+        string expression = QuestionText.GetExpression();
+        int? answer = QuestionText.GetAnswer();
 
         if (answer == null) return false;
         int intAnswer = answer.GetValueOrDefault();
@@ -113,7 +113,7 @@ public class LevelHandler : MonoBehaviour
 
     public bool AreAllGapsFilled()
     {
-        return question.AreAllGapsFilled();
+        return QuestionText.AreAllGapsFilled();
     }
 
     Level GenerateLevel(int level)

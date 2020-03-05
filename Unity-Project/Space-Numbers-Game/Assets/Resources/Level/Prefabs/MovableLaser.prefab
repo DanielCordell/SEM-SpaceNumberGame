@@ -68,7 +68,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a19a7cc180e6ee468d9be13a53a4bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  asteroidTarget: {fileID: 0}
+  LaserSpeed: 8
+  AsteroidTarget: {fileID: 0}
 --- !u!70 &4869706089415237324
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

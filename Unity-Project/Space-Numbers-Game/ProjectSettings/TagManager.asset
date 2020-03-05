@@ -9,7 +9,7 @@ TagManager:
   - Asteroid
   - Shields
   - HealthBars
-  - ShieldStateHandler
+  - SpaceshipSpawnPos
   layers:
   - Default
   - TransparentFX

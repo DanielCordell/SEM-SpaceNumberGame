@@ -29,7 +29,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Nothing
+  m_Name: AsteroidPreExplosion
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -43,7 +43,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7d93200e554f649148d7e7403c5369cd, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8f52eda29da9d4ab0944bd1f245dbfff, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
