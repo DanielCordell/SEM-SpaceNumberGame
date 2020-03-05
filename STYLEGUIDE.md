@@ -55,41 +55,42 @@ Use a leading underscore to make object instances that are not specific to the c
 e.g.
 ```
 Assets
-+---Art
-|   +---Materials
-|   +---Models      # FBX and BLEND files
-|   +---Textures    # PNG files
-+---Audio
-|   +---Music
-|   \---Sound       # Samples and sound effects
-+---Code
-|   +---Scripts     # C# scripts
-|   \---Shaders     # Shader files and shader graphs
-+---Docs            # Wiki, concept art, marketing material
-+---Level           # Anything related to game design in Unity
-|   +---Prefabs
-|   +---Scenes
-|   \---UI
-\---Resources       # Configuration files, localization text and other user files.
++---Fonts
++---Plugins
++---Resources
+|   +---Art
+|       +---Animations
+|       +---Mateirals
+|       +---Textures
+|   +---Audio
+|       +---Music
+|       +---Sounds
+|   +---Level
+|       +---Prefabs
+|       +---Scenes
+|   +---Scripts
+|       +---Level
+|       +---Shield
+|       +---Spaceship
+|       +---Timer
+|       +---UI
+|       +---Visual
++---Tests
+|   +---EditMode
+|   +---PlayMode
 ```
 ## Scripts
-
-Use namespaces that match your directory structure.
-
-A Framework directory is great for having code that can be reused across projects.
-
-The Scripts folder varies depending on the project, however, `Environment`, `Framework`, `Tools` and `UI` should be consistent  across projects. 
 
 e.g.
 
 ```
 Scripts
-+---Environment
-+---Framework
-+---NPC
-+---Player
++---Level
++---Shield
++---Spaceship
++---Timer
++---UI
 +---Tools
-\---UI
 ```
 
 # Code
@@ -97,7 +98,8 @@ Scripts
 Don't try to shove all behaviour into one script! Logical separation of behaviour, _single responsibility_.
 
 ## Naming
-- Variables - `camelCase`
+- Public Variables - `PascalCase`
+- Other Variables - `camelCase`
 - Classes / Data Types - `PascalCase`
     - File Names should match Class Names.
 - Functions - `PasclCase`

@@ -1,0 +1,15 @@
+{
+    "name": "MathsAssembly",
+    "references": [
+        "GUID:1ace098b4e3684119a2152e5bf98bed7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

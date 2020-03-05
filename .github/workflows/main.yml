@@ -1,0 +1,37 @@
+name: Unit Testing
+on:
+  push:
+    branches-ignore:
+      - 'dev'
+      - 'master'
+  pull_request:
+    branches:
+      - 'dev'
+      - 'master'
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Cache
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: cache
+          key: tests-cache
+      - uses: webbertakken/unity-test-runner@v1.4
+        id: unitTests
+        with:
+          projectPath: Unity-Project/Space-Numbers-Game
+          unityVersion: 2019.3.0f6
+      - uses: actions/upload-artifact@v1
+        id: upload
+        with:
+          name: Test results
+          path: artifacts
