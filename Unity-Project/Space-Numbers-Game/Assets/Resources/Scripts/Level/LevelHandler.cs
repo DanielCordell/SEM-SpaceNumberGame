@@ -195,7 +195,21 @@ public class LevelHandler : MonoBehaviour
         if (countOnCurrentLevel == 5)
         {
             countOnCurrentLevel = 0;
-            // Go to next level
+            int levelNo = currentLevel.levelNum;
+            if (levelNo >= ConfigData.NumberOfLevels)
+            {
+                // You win!
+            }
+            levelNo++; // Next Level
+            LevelDTO newLevelDTO = ConfigData.LevelData.Levels.Find(it => it.LevelNo == levelNo);
+
+            CurrentLevel.LevelNo = newLevelDTO.LevelNo;
+            CurrentLevel.Difficulty = newLevelDTO.Difficulty.ToDifficulty(); ;
+            CurrentLevel.Numbers = newLevelDTO.Numbers;
+            CurrentLevel.Operators = newLevelDTO.Operators.Select(it => it.ToOperator()).ToList();
+            CurrentLevel.NoNumbers = newLevelDTO.NoNumbers;
+            CurrentLevel.NoQuestions = newLevelDTO.NoQuestions;
+            CurrentLevel.NoBlanks = newLevelDTO.NoBlanks;
             return;
         }
         currentLevel = GenerateLevel();
