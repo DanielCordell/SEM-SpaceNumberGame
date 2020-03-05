@@ -11,9 +11,9 @@ public class Question : MonoBehaviour
     public List<GameObject> Items;
     public int Answer;
     public string QuestionString;
-    public GameObject blankPrefab;
-    public GameObject numberPrefab;
-    public GameObject symbolPrefab;
+    public GameObject PrefabBlank;
+    public GameObject PrefabNumber;
+    public GameObject PrefabSymbol;
 
     public float gapBetweenItems;
 
@@ -45,17 +45,17 @@ public class Question : MonoBehaviour
 
             if (Regex.IsMatch(value ,"[-+*/=]"))
             {
-                obj = Instantiate(symbolPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                obj = Instantiate(PrefabSymbol, new Vector3(0, 0, 0), Quaternion.identity);
                 Operator op = value.ToString().ToOperator();
                 obj.GetComponent<Symbol>().SetValue(op);
             } 
             else if (!visible[index/2])
             {
-                obj = Instantiate(blankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                obj = Instantiate(PrefabBlank, new Vector3(0, 0, 0), Quaternion.identity);
             }
             else
             {
-                obj = Instantiate(numberPrefab);
+                obj = Instantiate(PrefabNumber);
                 obj.GetComponent<Number>().SetValue(int.Parse(value));
             }
             obj.transform.SetParent(gameObject.transform, false);
@@ -156,19 +156,36 @@ public class Question : MonoBehaviour
     public int? GetAnswer() {
         var item = Items.Last();
 
+        int? value = null;
+
         var blank = item.gameObject.GetComponentInChildren<Blank>();
         if (blank != null)
         {
-            return blank.GetValue();
+            value = blank.GetValue();
         }
 
         var number = item.gameObject.GetComponentInChildren<Number>();
         if (number != null)
         {
-            return number.GetValue();
+            value = number.GetValue();
         }
-        
-        Debug.Log("This shouldn't happen, last item is not a blank or a number!");
-        return null;
+
+        // If we haven't got a value at this point, something broke!
+        if (value == null)
+        {
+            Debug.Log("This shouldn't happen, last item is not a blank or a number!");
+            return null;
+        }
+
+        // Could potentially happen somehow
+        if (Items.Count == 1) return value;
+
+        // Flip the sign if the previous value is -1
+        var penultimateItem = Items[Items.Count - 2].gameObject.GetComponentInChildren<Symbol>();
+        if (penultimateItem != null && penultimateItem.GetValue() == Operator.Subtract)
+        {
+            value = -value;
+        }
+        return value;
     }
 }

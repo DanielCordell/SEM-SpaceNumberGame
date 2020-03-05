@@ -156,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Selected: 0
-  Value: 0
 --- !u!82 &1245198966013708287
 AudioSource:
   m_ObjectHideFlags: 0
@@ -398,7 +397,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: a24b949c3a0f9447f81137fb9a3c0511, type: 3}
     m_FontSize: 90
     m_FontStyle: 1
     m_BestFit: 0

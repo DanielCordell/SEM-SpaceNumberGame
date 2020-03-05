@@ -4,8 +4,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "MathsAssembly",
-        "Visual",
-        "Core"
+        "Core",
+        "Tools"
     ],
     "includePlatforms": [
         "Editor"
