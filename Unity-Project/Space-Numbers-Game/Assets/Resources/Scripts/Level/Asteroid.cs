@@ -25,9 +25,9 @@ public class Asteroid : MonoBehaviour
             Value = value;
 
         audioSource = GetComponent<AudioSource>();
-        selectSound = Resources.Load("Audio/Sound/select") as AudioClip;
-        destroySound = Resources.Load("Audio/Sound/explode") as AudioClip;
-        cantSelect = Resources.Load("Audio/Sound/cant_select") as AudioClip;
+        selectSound = Resources.Load("Audio/Sound/Select_Asteroid") as AudioClip;
+        destroySound = Resources.Load("Audio/Sound/Explode") as AudioClip;
+        cantSelect = Resources.Load("Audio/Sound/Cant_Select") as AudioClip;
         crosshair = transform.Find("NoRotation/Crosshair").gameObject;
         crosshair.SetActive(Selected);
         animator = gameObject.transform.Find("NoRotation/Explosion").gameObject.GetComponent<Animator>();

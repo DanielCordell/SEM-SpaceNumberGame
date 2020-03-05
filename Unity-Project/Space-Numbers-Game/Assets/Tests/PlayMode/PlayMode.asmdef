@@ -4,7 +4,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "MathsAssembly",
-        "Visual"
+        "Tools",
+        "ShieldAssembly"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

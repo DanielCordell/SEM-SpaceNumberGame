@@ -6,38 +6,38 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     // how many time left
-    public float currentTimer;
-    public float startTimer;
-    public float timerPercent;
-    public AudioSource countdown;
+    public float TimerCurrent;
+    public float TimerStart;
+    public float TimerPercent;
+    public AudioSource CountdownSound;
     private bool hasPlayedSound;
     private Image timerBox;
 
     void Start()
     {
         InitialiseTimer();
-        currentTimer = startTimer;
+        TimerCurrent = TimerStart;
     }
 
 
     void InitialiseTimer()
     {
-        startTimer = 60f;
+        TimerStart = 60f;
         timerBox = GetComponent<Image>();
-        countdown = timerBox.GetComponent<AudioSource>();
+        CountdownSound = timerBox.GetComponent<AudioSource>();
     }
    
 
     void Update()
     {
         // count time
-        currentTimer -= Time.deltaTime;
-        timerPercent = currentTimer / startTimer;
-        timerBox.fillAmount = timerPercent;
-        if (currentTimer < countdown.clip.length && !hasPlayedSound)
+        TimerCurrent -= Time.deltaTime;
+        TimerPercent = TimerCurrent / TimerStart;
+        timerBox.fillAmount = TimerPercent;
+        if (TimerCurrent < CountdownSound.clip.length && !hasPlayedSound)
         {
             hasPlayedSound = true;
-            countdown.Play();
+            CountdownSound.Play();
             //TODO jump to game over scene
             Debug.Log("Once the timer is 0, jump to game over scene");
         }

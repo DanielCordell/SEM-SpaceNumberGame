@@ -22,14 +22,14 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator CanCreateAsteroidPrefab()
+        public IEnumerator Test_CanCreateAsteroidPrefab()
         {
             Assert.DoesNotThrow(() => GameObject.Instantiate(asteroidPrefab));
             yield return null;
         }
 
         [UnityTest]
-        public IEnumerator WhenTheAsteroidIsNotSelectedAndItIsClickedThenSelectedShouldBeTrue()
+        public IEnumerator Test_WhenTheAsteroidIsNotSelectedAndItIsClickedThenSelectedShouldBeTrue()
         {
             GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
             yield return null;
@@ -45,7 +45,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator WhenTheAsteroidIsSelectedAndItIsClickedThenSelectedShouldBeFalse()
+        public IEnumerator Test_WhenTheAsteroidIsSelectedAndItIsClickedThenSelectedShouldBeFalse()
         {
             GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
             yield return null;
@@ -61,7 +61,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator WhenTheAsteroidIsSelectedTheCrosshairShouldBeVisible()
+        public IEnumerator Test_WhenTheAsteroidIsSelectedTheCrosshairShouldBeVisible()
         {
             GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
             yield return null;
@@ -78,7 +78,7 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator WhenTheAsteroidIsDeselectedTheCrosshairShouldNotBeVisible()
+        public IEnumerator Test_WhenTheAsteroidIsDeselectedTheCrosshairShouldNotBeVisible()
         {
             GameObject asteroidObject = GameObject.Instantiate(asteroidPrefab);
             yield return null;
