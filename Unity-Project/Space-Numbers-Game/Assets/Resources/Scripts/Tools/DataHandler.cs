@@ -40,6 +40,7 @@ public class DataHandler : MonoBehaviour
     public void UpdateScore()
     {
         Score.text = "Score: " + ScoreValue.ToString();
+        PlayerPrefs.SetInt("Score",ScoreValue);
     }
 
     // Update is called once per frame
