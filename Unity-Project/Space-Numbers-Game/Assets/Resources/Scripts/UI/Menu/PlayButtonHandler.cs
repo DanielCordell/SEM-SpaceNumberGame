@@ -26,7 +26,7 @@ public class PlayButtonHandler : MonoBehaviour
         
     }
 
-    public void SetSelectedLevel(int level, Difficulty levelDifficulty, List<int> levelNumbers, List<Operator> levelOperators, int questions, int questionNumbers, int questionBlanks)
+    public void SetSelectedLevel(int level, Difficulty levelDifficulty, List<int> levelNumbers, List<Operator> levelOperators, int questions, int questionBlanks, int questionNumbers)
     {
         levelNo = level;
         difficulty = levelDifficulty;

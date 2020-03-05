@@ -17,7 +17,7 @@ public class LevelHandler : MonoBehaviour
     void Start()
     {
         // Current demo code to generate a level
-        currentLevel = GenerateLevel(1);
+        currentLevel = GenerateLevel();
         SetupLevel(ref currentLevel);
         QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
     }
@@ -116,27 +116,57 @@ public class LevelHandler : MonoBehaviour
         return QuestionText.AreAllGapsFilled();
     }
 
-    Level GenerateLevel(int level)
+    Level GenerateLevel()
     {
-        switch (level)
+        // Number Ranges
+        // Allows for extendability in the future with different numbers for each question to test specific things e.g. 5 times tables, dividing by 3, etc.
+        List<int>[] numberRanges = new List<int>[CurrentLevel.NoNumbers];
+        Debug.Log("Number Ranges Len: " + numberRanges.Length);
+        for (int i = 0; i < CurrentLevel.NoNumbers; ++i)
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 0, 5, 6 }, new List<int> { 4, 5, 6 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Add, Operator.Divide, Operator.Divide, Operator.Equals }, new List<bool> { true, false, true, false, true });
+            numberRanges[i] = CurrentLevel.Numbers.ToList();
         }
-        return null;
+
+        List<Operator> selectedOperators = CurrentLevel.Operators;
+
+        // Operators
+        Operator[] operators = new Operator[CurrentLevel.NoNumbers];
+        Debug.Log("Operators Len: " + operators.Length);
+        // Shuffling operators
+        System.Random rand = new System.Random();
+        selectedOperators = selectedOperators.OrderBy(it => rand.Next()).ToList();
+
+        // Selecting a random operator by shuffling the list and iterating through it
+        // Once list has been expended, reshuffle and continue
+        int selectedIndex = 0;
+        for (int i = 0; i < operators.Length - 1; ++i)
+        {
+            if (selectedIndex == 4)
+            {
+                selectedIndex = 0;
+                selectedOperators = selectedOperators.OrderBy(it => rand.Next()).ToList();
+            }
+            operators[i] = selectedOperators[selectedIndex++];
+        }
+        operators[operators.Length - 1] = Operator.Equals;
+
+
+        // Selecting visible randomly
+        bool[] visible = new bool[CurrentLevel.NoNumbers + 1].Select(it => true).ToArray();
+        Debug.Log("visible Len: " + visible.Length);
+        Debug.Log("Number of blanks: " + CurrentLevel.NoBlanks);
+        for (int i = 0; i < CurrentLevel.NoBlanks; ++i)
+        {
+            int randomIndex = -1;
+            do
+            {
+                randomIndex = rand.Next(0, visible.Length);
+            } while (randomIndex == -1 || !visible[randomIndex]);
+            visible[randomIndex] = false;
+        }
+
+
+        return new Level(CurrentLevel.LevelNo, numberRanges, operators, visible.ToList());
     }
 
 
