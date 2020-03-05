@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using NCalc;
 
 public class LevelHandler : MonoBehaviour
@@ -14,6 +15,7 @@ public class LevelHandler : MonoBehaviour
     public GameObject AsteroidPrefab;
     public Question QuestionText;
     public int NumberOfExtraAsteroids;
+    public Text levelNum;
 
     Fire spaceship;
     ShieldStateHandler shield;
@@ -37,6 +39,9 @@ public class LevelHandler : MonoBehaviour
     void SetupLevel(ref Level level)
     {
         if (level == null) throw new ArgumentNullException("Level is Null!");
+
+        levelNum.text = level.levelNum.ToString();
+
         int numberOfRealAsteroids = level.GetNumberOfGaps();
         int numberOfAsteroids = numberOfRealAsteroids + NumberOfExtraAsteroids;
         Debug.Log("Generating " + numberOfAsteroids + " asteroids.\nReal: " + numberOfRealAsteroids + " Fake: " + NumberOfExtraAsteroids);
