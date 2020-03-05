@@ -151,7 +151,6 @@ public class Question : MonoBehaviour
 
     public bool AreAllGapsFilled()
     {
-        Debug.Log("HELP" + Items.ToString());
         return Items.Select(it => it.GetComponentInChildren<Blank>()).Where(it => it != null).All(it => it.GetValue() != null);
     }
 

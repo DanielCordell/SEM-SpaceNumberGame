@@ -210,7 +210,6 @@ public class LevelHandler : MonoBehaviour
             CurrentLevel.NoNumbers = newLevelDTO.NoNumbers;
             CurrentLevel.NoQuestions = newLevelDTO.NoQuestions;
             CurrentLevel.NoBlanks = newLevelDTO.NoBlanks;
-            return;
         }
         currentLevel = GenerateLevel();
         SetupLevel(ref currentLevel);
@@ -220,17 +219,17 @@ public class LevelHandler : MonoBehaviour
     {
         GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
         foreach (GameObject asteroid in asteroids) Destroy(asteroid);
-
+        QuestionText.Clear();
         spaceship.Reset();
         shield.InitialiseShieldState();
         timer.InitialiseTimer();
-        QuestionText.Clear();
     }
 
     public void SetLevelShouldUpdate()
     {
         shouldUpdate = true;
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("MathsAsset")) Destroy(obj);
+        QuestionText.Clear();
     }
 
     void Update()
