@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Linq;
 using PathCreation;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Fire : MonoBehaviour
 {
@@ -22,11 +23,13 @@ public class Fire : MonoBehaviour
 
     public GameObject PrefabLaser;
 
+    private DataHandler dataHandler;
+
     // Start is called before the first frame update
     void Start()
     {
         levelHandler = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<LevelHandler>();
-
+        dataHandler = GameObject.FindGameObjectWithTag("DataHandler").GetComponent<DataHandler>();
         soundWrongAnswer = Resources.Load<AudioClip>("audio/sound/wrong_answer");
         soundShoot = Resources.Load<AudioClip>("audio/sound/shoot");
         audioSource = GetComponent<AudioSource>();
@@ -69,7 +72,9 @@ public class Fire : MonoBehaviour
         {
             audioSource.clip = soundShoot;
             hintText.text = "Good  Job!";
+            dataHandler.AddRightNum();
             FireLasers();
+            StartCoroutine(TriggerUpdateAfterDelay());
         }
         else
         {
@@ -94,5 +99,11 @@ public class Fire : MonoBehaviour
             Vector3 point = new Vector3(it.transform.position.x - spawnPosition.x, it.transform.position.y - spawnPosition.y, 0);
             pathCreator.bezierPath = new BezierPath(new Vector3[3] { pathCreator.bezierPath.GetPoint(0), pathCreator.bezierPath.GetPoint(1), point }, false, PathSpace.xy);
         });
+    }
+
+    private IEnumerator TriggerUpdateAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        levelHandler.SetLevelShouldUpdate();
     }
 }

@@ -1,7 +1,10 @@
 {
     "name": "MathsAssembly",
     "references": [
-        "GUID:1ace098b4e3684119a2152e5bf98bed7"
+        "GUID:1ace098b4e3684119a2152e5bf98bed7",
+        "GUID:626070ea3273cb844a310aa4f53b31fa",
+        "GUID:423d00f43a9db2d40a8bfffac437471a",
+        "GUID:390cd3981e8ad8d4db0bc61e6357508a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

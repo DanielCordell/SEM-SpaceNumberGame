@@ -2,32 +2,62 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using NCalc;
 using UnityEngine.SceneManagement;
 
 public class LevelHandler : MonoBehaviour
 {
     Level currentLevel;
+    int countOnCurrentLevel;
+
     public const int MAX_LEVEL = 15;
 
     public GameObject AsteroidPrefab;
     public Question QuestionText;
     public int NumberOfExtraAsteroids;
+    public Text levelNum;
+
+    Fire spaceship;
+    ShieldStateHandler shield;
+    Timer timer;
+    SceneHandler sceneHandler;
+
+    bool shouldUpdate;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
-        // Current demo code to generate a level
-        currentLevel = GenerateLevel(1);
+        if (!CurrentLevel.init)
+        {
+            CurrentLevel.init = true;
+            CurrentLevel.Difficulty = Difficulty.Easy;
+            CurrentLevel.LevelNo = 1;
+            CurrentLevel.NoBlanks = 1;
+            CurrentLevel.NoNumbers = 2;
+            CurrentLevel.NoQuestions = 5;
+            CurrentLevel.Numbers = new List<int> { 1, 2, 3, 4, 5 };
+            CurrentLevel.Operators = new List<Operator> { Operator.Add };
+        }
+
+        currentLevel = GenerateLevel();
+        countOnCurrentLevel = 0;
         SetupLevel(ref currentLevel);
-        QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
+        spaceship = GameObject.FindGameObjectWithTag("Spaceship").GetComponent<Fire>();
+        shield = GameObject.FindGameObjectWithTag("Shields").GetComponent<ShieldStateHandler>();
+        timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+        sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
+        shouldUpdate = false;
     }
 
     void SetupLevel(ref Level level)
     {
         if (level == null) throw new ArgumentNullException("Level is Null!");
+
+        levelNum.text = level.levelNum.ToString();
+
         int numberOfRealAsteroids = level.GetNumberOfGaps();
         int numberOfAsteroids = numberOfRealAsteroids + NumberOfExtraAsteroids;
         Debug.Log("Generating " + numberOfAsteroids + " asteroids.\nReal: " + numberOfRealAsteroids + " Fake: " + NumberOfExtraAsteroids);
@@ -70,6 +100,8 @@ public class LevelHandler : MonoBehaviour
             SetupAsteroid(number, rand, positionObjects[valuesOfGaps.Length + i]);
             prevRandomNumbers.Add(number);
         }
+
+        QuestionText.SetQuestion(currentLevel.statementString, GetVisible());
     }
 
     void SetupAsteroid(int number, System.Random rand, GameObject positionObject)
@@ -119,34 +151,110 @@ public class LevelHandler : MonoBehaviour
         return QuestionText.AreAllGapsFilled();
     }
 
-    Level GenerateLevel(int level)
+    Level GenerateLevel()
     {
-        switch (level)
+        // Number Ranges
+        // Allows for extendability in the future with different numbers for each question to test specific things e.g. 5 times tables, dividing by 3, etc.
+        List<int>[] numberRanges = new List<int>[CurrentLevel.NoNumbers];
+        Debug.Log("Number Ranges Len: " + numberRanges.Length);
+        for (int i = 0; i < CurrentLevel.NoNumbers; ++i)
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 13:
-            case 14:
-            case 15: return new Level(1, new List<int>[] { new List<int> { 1, 2, 3 }, new List<int> { 0, 5, 6 }, new List<int> { 4, 5, 6 }, new List<int> { 4, 5, 6 } }, new Operator[] { Operator.Add, Operator.Divide, Operator.Divide, Operator.Equals }, new List<bool> { true, false, true, false, true });
+            numberRanges[i] = CurrentLevel.Numbers.ToList();
         }
-        return null;
+
+        List<Operator> selectedOperators = CurrentLevel.Operators;
+
+        // Operators
+        Operator[] operators = new Operator[CurrentLevel.NoNumbers];
+        Debug.Log("Operators Len: " + operators.Length);
+        // Shuffling operators
+        System.Random rand = new System.Random();
+        selectedOperators = selectedOperators.OrderBy(it => rand.Next()).ToList();
+
+        // Selecting a random operator by shuffling the list and iterating through it
+        // Once list has been expended, reshuffle and continue
+        int selectedIndex = 0;
+        for (int i = 0; i < operators.Length - 1; ++i)
+        {
+            if (selectedIndex == 4)
+            {
+                selectedIndex = 0;
+                selectedOperators = selectedOperators.OrderBy(it => rand.Next()).ToList();
+            }
+            operators[i] = selectedOperators[selectedIndex++];
+        }
+        operators[operators.Length - 1] = Operator.Equals;
+
+
+        // Selecting visible randomly
+        bool[] visible = new bool[CurrentLevel.NoNumbers + 1].Select(it => true).ToArray();
+        Debug.Log("visible Len: " + visible.Length);
+        Debug.Log("Number of blanks: " + CurrentLevel.NoBlanks);
+        for (int i = 0; i < CurrentLevel.NoBlanks; ++i)
+        {
+            int randomIndex = -1;
+            do
+            {
+                randomIndex = rand.Next(0, visible.Length);
+            } while (randomIndex == -1 || !visible[randomIndex]);
+            visible[randomIndex] = false;
+        }
+
+
+        return new Level(CurrentLevel.LevelNo, numberRanges, operators, visible.ToList());
     }
 
+    public void UpdateCurrentLevel()
+    {
+        ResetScene();
+        countOnCurrentLevel++;
+        if (countOnCurrentLevel == 5)
+        {
+            countOnCurrentLevel = 0;
+            int levelNo = currentLevel.levelNum;
+            if (levelNo >= ConfigData.NumberOfLevels)
+            {
+                sceneHandler.GoGameOverScene();
+            }
+            levelNo++; // Next Level
+            LevelDTO newLevelDTO = ConfigData.LevelData.Levels.Find(it => it.LevelNo == levelNo);
 
+            CurrentLevel.LevelNo = newLevelDTO.LevelNo;
+            CurrentLevel.Difficulty = newLevelDTO.Difficulty.ToDifficulty(); ;
+            CurrentLevel.Numbers = newLevelDTO.Numbers;
+            CurrentLevel.Operators = newLevelDTO.Operators.Select(it => it.ToOperator()).ToList();
+            CurrentLevel.NoNumbers = newLevelDTO.NoNumbers;
+            CurrentLevel.NoQuestions = newLevelDTO.NoQuestions;
+            CurrentLevel.NoBlanks = newLevelDTO.NoBlanks;
+        }
+        currentLevel = GenerateLevel();
+        SetupLevel(ref currentLevel);
+    }
 
-    // Update is called once per frame
+    private void ResetScene()
+    {
+        GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
+        foreach (GameObject asteroid in asteroids) Destroy(asteroid);
+        QuestionText.Clear();
+        spaceship.Reset();
+        shield.InitialiseShieldState();
+        timer.InitialiseTimer();
+    }
+
+    public void SetLevelShouldUpdate()
+    {
+        shouldUpdate = true;
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("MathsAsset")) Destroy(obj);
+        QuestionText.Clear();
+    }
+
     void Update()
     {
+        if (shouldUpdate)
+        {
+            shouldUpdate = false;
+            UpdateCurrentLevel();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("MenuScene");
