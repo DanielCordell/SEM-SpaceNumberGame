@@ -4,6 +4,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "MathsAssembly",
+        "Core",
         "Tools",
         "ShieldAssembly"
     ],

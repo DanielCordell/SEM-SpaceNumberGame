@@ -1,7 +1,7 @@
 {
-    "name": "ShieldAssembly",
+    "name": "MenuAssembly",
     "references": [
-        "GUID:390cd3981e8ad8d4db0bc61e6357508a"
+        "GUID:1ace098b4e3684119a2152e5bf98bed7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

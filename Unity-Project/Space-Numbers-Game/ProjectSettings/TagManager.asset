@@ -15,9 +15,9 @@ TagManager:
   - Quit
   - PlayAgain
   - Menu
-  - ShieldStateHandler
   - DataHandler
   - Score
+  - SceneHandler
   layers:
   - Default
   - TransparentFX
