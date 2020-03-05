@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class Fire : MonoBehaviour
 {
-    private Button fireBtn;
+    private Button buttonFire;
     private AudioSource audioSource;
     private Text hintText;
 
@@ -31,8 +31,8 @@ public class Fire : MonoBehaviour
         soundShoot = Resources.Load<AudioClip>("audio/sound/shoot");
         audioSource = GetComponent<AudioSource>();
 
-        fireBtn = GetComponentInChildren<Button>();
-        fireBtn.onClick.AddListener(fireBtnOnClick);
+        buttonFire = GetComponentInChildren<Button>();
+        buttonFire.onClick.AddListener(FireButtonOnClick);
 
         hintText = GetComponentInChildren<Text>();
 
@@ -59,7 +59,7 @@ public class Fire : MonoBehaviour
     }
 
 
-    private void fireBtnOnClick()
+    private void FireButtonOnClick()
     {
         Debug.Log("Firing!");
         if (shieldStateHandler.CountWrong <= 3)
