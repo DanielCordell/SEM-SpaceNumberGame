@@ -20,6 +20,7 @@ public class LevelHandler : MonoBehaviour
     Fire spaceship;
     ShieldStateHandler shield;
     Timer timer;
+    SceneHandler sceneHandler;
 
     bool shouldUpdate;
 
@@ -33,6 +34,7 @@ public class LevelHandler : MonoBehaviour
         spaceship = GameObject.FindGameObjectWithTag("Spaceship").GetComponent<Fire>();
         shield = GameObject.FindGameObjectWithTag("Shields").GetComponent<ShieldStateHandler>();
         timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+        sceneHandler = GameObject.FindGameObjectWithTag("SceneHandler").GetComponent<SceneHandler>();
         shouldUpdate = false;
     }
 
@@ -198,7 +200,7 @@ public class LevelHandler : MonoBehaviour
             int levelNo = currentLevel.levelNum;
             if (levelNo >= ConfigData.NumberOfLevels)
             {
-                // You win!
+                sceneHandler.GoGameOverScene();
             }
             levelNo++; // Next Level
             LevelDTO newLevelDTO = ConfigData.LevelData.Levels.Find(it => it.LevelNo == levelNo);
