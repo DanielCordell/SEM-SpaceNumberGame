@@ -9,43 +9,44 @@ public class LevelSelectButtonHandler : MonoBehaviour
 {
     int levelNumber;
     Difficulty levelDifficulty;
-    List<int> numberRange;
+    List<int> potentialNumbers;
     List<Operator> operators;
+    int numbers;
+    int questions;
+    int blanks;
 
     LevelInfo levelInfo;
     PlayButtonHandler playButtonHandler;
 
-    // Start is called before the first frame update
     void Start()
     {
         levelInfo = gameObject.transform.Find("/LevelSelectCanvas/InfoWindow").GetComponentInChildren<LevelInfo>();
-        playButtonHandler = gameObject.transform.Find("/LevelSelectCanvas/InfoWindow/PlayLevelButton").GetComponentInChildren<PlayButtonHandler>();
+
         // levelNumber = 1;
         // levelDifficulty = Difficulty.Easy;
-        // numberRange = new List<int>{1,2,3,4,5};
+        // potentialNumbers = new List<int>{1,2,3,4,5};
         // operators = new List<Operator>{ Operator.Add };
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void SetUpButton(int level, Difficulty difficulty, List<int> range, List<Operator> ops) {
+    public void SetUpButton(int level, Difficulty difficulty, List<int> range, List<Operator> ops, int noQuestions, int noNumbers, int noBlanks) {
         levelNumber = level;
         levelDifficulty = difficulty;
-        numberRange = range;
+        potentialNumbers = range;
         operators = ops;
+        questions = noQuestions;
+        numbers = noNumbers;
+        blanks = noBlanks;
 
         gameObject.GetComponentInChildren<Text>().text = level.ToString();
     }
 
     public void SetLevelInfo() {
-        var range = new NumberRange { RangeFloor = numberRange.Min(), RangeCeiling = numberRange.Max()};
-        levelInfo.UpdateInfo(levelNumber, levelDifficulty, range, operators);
-
-        playButtonHandler.SetSelectedLevel(levelNumber, levelDifficulty, numberRange, operators);
+        levelInfo.UpdateInfo(levelNumber, levelDifficulty, potentialNumbers, operators, questions, blanks, numbers);
     }
 }
 

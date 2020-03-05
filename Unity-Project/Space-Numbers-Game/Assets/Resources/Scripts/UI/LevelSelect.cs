@@ -68,7 +68,7 @@ public class LevelSelect : MonoBehaviour
         Difficulty difficulty = level.Difficulty.ToDifficulty();
         List<Operator> operators = level.Operators.Select(o => o.ToOperator()).ToList();
 
-        handler.SetUpButton(level.LevelNo, difficulty, level.Numbers, operators);
+        handler.SetUpButton(level.LevelNo, difficulty, level.Numbers, operators, level.NoQuestions, level.NoNumbers, level.NoBlanks);
 
         return button;
     }
