@@ -25,7 +25,8 @@ public class SpaceshipHandler : MonoBehaviour
 
     void Start()
     {
-        startPosition = transform.position;
+        GameObject spawnObject = GameObject.FindGameObjectWithTag("SpaceshipSpawnPos");
+        startPosition = spawnObject.transform.position;
         lerpStartPosition = startPosition;
         moveToPosition = GetNewTargetPosition();
         timeMoved = 0;
@@ -34,6 +35,10 @@ public class SpaceshipHandler : MonoBehaviour
         fixedMovementFinished = false;
 
         isQuit = false;
+
+
+        SetTargetObject(spawnObject);
+        transform.position += new Vector3(0, -10, 0);
     }
 
     void Update()
@@ -48,11 +53,19 @@ public class SpaceshipHandler : MonoBehaviour
                 Application.Quit();
                 #endif
             }
+            else
+            {
+                overrideWithFixedMovement = false;
+                fixedMovementFinished = false;
+                ResetMove();
+            }
         }
         if (overrideWithFixedMovement)
         {
             transform.position = Vector3.SmoothDamp(transform.position, moveToPosition, ref velocityForFixedMovement, 0.5f);
-            if (Vector3.Distance(moveToPosition, transform.position) < 2) fixedMovementFinished = true;
+            /// We want it to shoot off quickly so the distance needs to be far away, but we don't want the user to wait too long on quit. So if quit it actualy checks BEFORE the end and quits when the ship is 2 units away.
+            float requiredDistance = isQuit ? 2.0f : 0.01f; 
+            if (Vector3.Distance(moveToPosition, transform.position) < requiredDistance) fixedMovementFinished = true;
         }
         else
         {
@@ -61,11 +74,16 @@ public class SpaceshipHandler : MonoBehaviour
             transform.position = Vector3.Lerp(lerpStartPosition, moveToPosition, hasFinishedMove ? 1 : timeMoved / TimeForMove);
             if (hasFinishedMove)
             {
-                timeMoved = 0;
-                moveToPosition = GetNewTargetPosition();
-                lerpStartPosition = transform.position;
+                ResetMove();
             }
         }
+    }
+
+    private void ResetMove()
+    {
+        timeMoved = 0;
+        moveToPosition = GetNewTargetPosition();
+        lerpStartPosition = transform.position;
     }
 
     public Vector3 GetNewTargetPosition()
