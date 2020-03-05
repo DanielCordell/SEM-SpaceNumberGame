@@ -20,9 +20,4 @@ public class GameOver : MonoBehaviour
         quitBtn.onClick.AddListener(sceneHandler.ExitGame);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -80,10 +80,4 @@ public class ShieldStateHandler : MonoBehaviour
         if (shieldSR.sprite == null) return null;
         return shieldSR.sprite.texture.name;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
