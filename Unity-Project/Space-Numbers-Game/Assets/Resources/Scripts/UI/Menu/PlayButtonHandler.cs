@@ -26,7 +26,7 @@ public class PlayButtonHandler : MonoBehaviour
         
     }
 
-    public void SetSelectedLevel(int level, Difficulty levelDifficulty, List<int> levelNumbers, List<Operator> levelOperators, int questions, int questionNumbers, int questionBlanks)
+    public void SetSelectedLevel(int level, Difficulty levelDifficulty, List<int> levelNumbers, List<Operator> levelOperators, int questions, int questionBlanks, int questionNumbers)
     {
         levelNo = level;
         difficulty = levelDifficulty;
@@ -47,6 +47,7 @@ public class PlayButtonHandler : MonoBehaviour
         Debug.Log("Now playing: Level " + levelNo.ToString());
 
         //Pass all stuff to the level and do that stuff here
+        CurrentLevel.init = true;
         CurrentLevel.LevelNo = levelNo;
         CurrentLevel.Difficulty = difficulty;
         CurrentLevel.Numbers = numbers;

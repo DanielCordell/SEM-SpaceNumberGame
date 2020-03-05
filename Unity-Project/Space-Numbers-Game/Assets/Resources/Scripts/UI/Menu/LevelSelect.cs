@@ -6,24 +6,20 @@ using UnityEngine;
 
 public class LevelSelect : MonoBehaviour
 { 
-    LevelsDTO levels;
     public GameObject Button;
     public int GapBetweenItems;
     public int Rows;
     public int Columns;
     
     public PlayButtonHandler playButton;
-    List<GameObject> buttons;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        LoadLevels();
-
         int c = 0;
         int r = 0;
-        foreach (var level in levels.Levels)
+        foreach (var level in ConfigData.LevelData.Levels)
         {
             var button = CreateLevelButton(level);
             PositionButton(button, c, r);
@@ -41,14 +37,6 @@ public class LevelSelect : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void LoadLevels()
-    {
-        var jsonFile = Resources.Load<TextAsset>("Config/Levels");
-        Debug.Log(jsonFile.ToString());
-        levels = JsonUtility.FromJson<LevelsDTO>(jsonFile.ToString());
-        Debug.Log(levels.Levels.Count.ToString());
     }
 
     void PositionButton(GameObject button, int column, int row)
@@ -74,20 +62,3 @@ public class LevelSelect : MonoBehaviour
     }
 }
 
-[Serializable]
-public class LevelDTO
-{
-    public int LevelNo;
-    public string Difficulty;
-    public List<int> Numbers;
-    public List<string> Operators;
-    public int NoQuestions;
-    public int NoNumbers;
-    public int NoBlanks;
-}
-
-[Serializable]
-public class LevelsDTO
-{
-    public List<LevelDTO> Levels;
-}

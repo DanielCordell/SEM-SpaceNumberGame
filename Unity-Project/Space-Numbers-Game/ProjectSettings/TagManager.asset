@@ -10,11 +10,18 @@ TagManager:
   - Shields
   - HealthBars
   - SpaceshipSpawnPos
+  - GameOverSceneHandler
   - ButtonHandler
   - Quit
   - PlayAgain
   - Menu
+  - DataHandler
+  - Score
   - SceneHandler
+  - Spaceship
+  - Timer
+  - MathsAsset
+  - ScoreText
   layers:
   - Default
   - TransparentFX
