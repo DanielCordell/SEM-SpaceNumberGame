@@ -31,7 +31,6 @@ public class Question : MonoBehaviour
 
     public void SetQuestion(string questionString, List<bool> visible)
     {
-        Items.Clear();
         SplitQuestion(questionString, visible);
         PositionQuestionComponents();
     }
@@ -190,5 +189,10 @@ public class Question : MonoBehaviour
             value = -value;
         }
         return value;
+    }
+
+    public void Clear()
+    {
+        Items.Clear();
     }
 }

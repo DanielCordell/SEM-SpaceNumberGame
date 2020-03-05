@@ -224,6 +224,7 @@ public class LevelHandler : MonoBehaviour
         spaceship.Reset();
         shield.InitialiseShieldState();
         timer.InitialiseTimer();
+        QuestionText.Clear();
     }
 
     public void SetLevelShouldUpdate()
