@@ -47,6 +47,7 @@ public class PlayButtonHandler : MonoBehaviour
         Debug.Log("Now playing: Level " + levelNo.ToString());
 
         //Pass all stuff to the level and do that stuff here
+        CurrentLevel.init = true;
         CurrentLevel.LevelNo = levelNo;
         CurrentLevel.Difficulty = difficulty;
         CurrentLevel.Numbers = numbers;

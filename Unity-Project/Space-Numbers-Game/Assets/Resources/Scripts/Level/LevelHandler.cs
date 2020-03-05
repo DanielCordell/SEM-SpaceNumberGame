@@ -27,7 +27,18 @@ public class LevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Current demo code to generate a level
+        if (!CurrentLevel.init)
+        {
+            CurrentLevel.init = true;
+            CurrentLevel.Difficulty = Difficulty.Easy;
+            CurrentLevel.LevelNo = 1;
+            CurrentLevel.NoBlanks = 1;
+            CurrentLevel.NoNumbers = 2;
+            CurrentLevel.NoQuestions = 5;
+            CurrentLevel.Numbers = new List<int> { 1, 2, 3, 4, 5 };
+            CurrentLevel.Operators = new List<Operator> { Operator.Add };
+        }
+
         currentLevel = GenerateLevel();
         countOnCurrentLevel = 0;
         SetupLevel(ref currentLevel);
