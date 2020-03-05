@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayButtonHandler : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class PlayButtonHandler : MonoBehaviour
             return;
     
         Debug.Log("Now playing: Level " + levelNo.ToString());
+
         //Pass all stuff to the level and do that stuff here
+        SceneManager.LoadScene("SpaceScene");
     }
 }
