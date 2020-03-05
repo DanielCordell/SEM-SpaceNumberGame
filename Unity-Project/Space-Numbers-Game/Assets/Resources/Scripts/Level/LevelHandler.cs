@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using NCalc;
+using UnityEngine.SceneManagement;
 
 public class LevelHandler : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class LevelHandler : MonoBehaviour
     SceneHandler sceneHandler;
 
     bool shouldUpdate;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -240,6 +243,10 @@ public class LevelHandler : MonoBehaviour
         {
             shouldUpdate = false;
             UpdateCurrentLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MenuScene");
         }
     }
 }
