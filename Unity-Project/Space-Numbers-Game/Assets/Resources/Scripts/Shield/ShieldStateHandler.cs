@@ -15,6 +15,7 @@ public class ShieldStateHandler : MonoBehaviour
     // The current sprite of Shield
     SpriteRenderer shieldSR;
 
+    SceneHandler sceneHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class ShieldStateHandler : MonoBehaviour
         HealthBars = GameObject.FindGameObjectWithTag("HealthBars");
         Shields = GameObject.FindGameObjectWithTag("Shields");
         //shieldBreak = shields.transform.GetComponent<AudioSource>();
+        sceneHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<SceneHandler>();
         // Find the current sprite
         healthBarSR = HealthBars.transform.GetComponent<SpriteRenderer>();
         shieldSR = Shields.transform.GetComponent<SpriteRenderer>();
@@ -62,8 +64,7 @@ public class ShieldStateHandler : MonoBehaviour
                     healthBarSR.sprite = Resources.Load("Art/Textures/healthBar" + currentWrongTimes, typeof(Sprite)) as Sprite;
                 break;
             default:
-                //TODO Should jump to game over scene.
-                Debug.Log("Once player gets 3 times wrong, jump to game over scene.");
+                sceneHandler.GoGameOverScene();
                 break;
         }
     }

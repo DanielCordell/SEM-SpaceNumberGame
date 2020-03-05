@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour
     public AudioSource CountdownSound;
     private bool hasPlayedSound;
     private Image timerBox;
+    SceneHandler sceneHandler;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class Timer : MonoBehaviour
         TimerStart = 60f;
         timerBox = GetComponent<Image>();
         CountdownSound = timerBox.GetComponent<AudioSource>();
+        sceneHandler = GameObject.FindGameObjectWithTag("ShieldStateHandler").GetComponent<SceneHandler>();
     }
    
 
@@ -38,8 +40,8 @@ public class Timer : MonoBehaviour
         {
             hasPlayedSound = true;
             CountdownSound.Play();
-            //TODO jump to game over scene
-            Debug.Log("Once the timer is 0, jump to game over scene");
         }
+        if (CountdownSound.time == CountdownSound.clip.length)
+            sceneHandler.GoGameOverScene();
     }
 }
